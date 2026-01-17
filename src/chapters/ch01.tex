@@ -1,0 +1,377 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+\section{重積分}
+
+\subsection{重積分の意味と累次積分}
+\noindent\textbf{重積分と累次積分}\par
+長方形領域
+\[
+  D=\{(x,y)\mid a\le x\le b,\ c\le y\le d\}
+\]
+上で連続な関数 $f(x,y)$ に対し, 重積分は次で定義される:
+\begin{mathpad}
+  \[
+    \iint_{D} f(x,y)\, \dd x \dd y.
+  \]
+\end{mathpad}
+この積分は, $xy$ 平面上の底面 $D$ と高さ $f(x,y)$ で張られる立体の体積を表す.
+また, 1変数積分の反復として
+\begin{mathpad}
+  \[
+    \iint_{D} f(x,y)\, \dd x \dd y
+    = \int_{a}^{b}\!\left(\int_{c}^{d} f(x,y)\, \dd y\right)\dd x
+    = \int_{c}^{d}\!\left(\int_{a}^{b} f(x,y)\, \dd x\right)\dd y
+  \]
+\end{mathpad}
+が成り立つ. この形を累次積分という.
+
+\begin{theorem}{フビニの定理}{thm:fubini}
+  閉領域 $D$ 上で $f(x,y)$ が連続ならば, 重積分は累次積分として計算できる:
+  \begin{mathpad}
+    \[
+      \iint_{D} f(x,y)\, \dd x \dd y
+      = \int_{a}^{b}\!\left(\int_{g_{1}(x)}^{g_{2}(x)} f(x,y)\, \dd y\right)\dd x
+      = \int_{c}^{d}\!\left(\int_{h_{1}(y)}^{h_{2}(y)} f(x,y)\, \dd x\right)\dd y.
+    \]
+  \end{mathpad}
+  領域の表し方に応じて積分順序を選ぶのが基本である.
+\end{theorem}
+
+\begin{exproblem}{長方形領域での基本計算}{ex:rect-basic}
+  \[
+    I=\iint_{D} (x+2y)\, \dd x \dd y,\quad D=\{(x,y)\mid 0\le x\le 2,\ 1\le y\le 3\}
+  \]
+  を求めよ.
+\par\noindent\dotfill\par
+\noindent\textbf{解答}\par
+まず $y$ で内側の積分を行う. 領域が長方形なので境界は定数であり,
+累次積分の形がそのまま使える
+\begin{mathpad}
+  \begin{align*}
+    I
+      &= \int_{0}^{2}\!\left(\int_{1}^{3}(x+2y)\, \dd y\right)\dd x \\
+      &= \int_{0}^{2}\!\left(\biggl[xy+y^{2}\biggr]{}_{\raisebox{-1.1ex}{$y=1$}}^{\raisebox{1.2ex}{$y=3$}}\right)\dd x \\
+      &= \int_{0}^{2}\!\left((3x+9)-(x+1)\right)\dd x \\
+      &= \int_{0}^{2}\!\left(2x+8\right)\dd x \\
+      &= \biggl[x^{2}+8x\biggr]{}_{\raisebox{-1.1ex}{$x=0$}}^{\raisebox{1.2ex}{$x=2$}} \\
+      &= 20
+  \end{align*}
+\end{mathpad}
+\end{exproblem}
+
+\subsection{累次積分の設定法}
+\noindent\textbf{縦に切る領域（$x$ で記述）}\par
+領域 $D$ が
+\begin{mathpad}
+  \[
+    D=\{(x,y)\mid a\le x\le b,\ g_{1}(x)\le y\le g_{2}(x)\}
+  \]
+\end{mathpad}
+と表せるとき, $y$ を内側に取る累次積分で計算する:
+\begin{mathpad}
+  \[
+    \iint_{D} f(x,y)\, \dd x \dd y
+    = \int_{a}^{b}\!\left(\int_{g_{1}(x)}^{g_{2}(x)} f(x,y)\, \dd y\right)\dd x.
+  \]
+\end{mathpad}
+
+\noindent\textbf{横に切る領域（$y$ で記述）}\par
+領域 $D$ が
+\begin{mathpad}
+  \[
+    D=\{(x,y)\mid c\le y\le d,\ h_{1}(y)\le x\le h_{2}(y)\}
+  \]
+\end{mathpad}
+と表せるとき, $x$ を内側に取る累次積分で計算する:
+\begin{mathpad}
+  \[
+    \iint_{D} f(x,y)\, \dd x \dd y
+    = \int_{c}^{d}\!\left(\int_{h_{1}(y)}^{h_{2}(y)} f(x,y)\, \dd x\right)\dd y.
+  \]
+\end{mathpad}
+
+\begin{remark}{積分順序の交換}{rm:order-exchange}
+  領域を図示して境界式を読み取り, どちらの順序で書くと簡潔になるかを判断する.
+  順序交換では, 境界曲線の上下関係や交点を必ず確認することが重要である.
+\end{remark}
+
+\begin{exproblem}{積分順序の交換}{ex:order-change}
+  領域 $D=\{(x,y)\mid 0\le x\le 1,\ x^{2}\le y\le x\}$ 上で
+  \[
+    I=\iint_{D} (x+y)\, \dd x \dd y
+  \]
+  を求めよ.
+\par\noindent\dotfill\par
+\noindent\textbf{解答}\par
+まず $y=x^{2}$ と $y=x$ に挟まれる領域を図示する.
+$y$ を固定すると $x$ の範囲は $y\le x\le \sqrt{y}$ となるので,
+積分順序を交換して計算する
+\begin{mathpad}
+  \begin{align*}
+    I
+      &= \int_{0}^{1}\!\left(\int_{y}^{\sqrt{y}}(x+y)\, \dd x\right)\dd y \\
+      &= \int_{0}^{1}\!\left(\biggl[\frac{x^{2}}{2}+yx\biggr]{}_{\raisebox{-1.1ex}{$x=y$}}^{\raisebox{1.2ex}{$x=\sqrt{y}$}}\right)\dd y \\
+      &= \int_{0}^{1}\!\left(\frac{y}{2}+y^{\frac{3}{2}}-\frac{y^{2}}{2}-y^{2}\right)\dd y \\
+      &= \int_{0}^{1}\!\left(\frac{1}{2}y+y^{\frac{3}{2}}-\frac{3}{2}y^{2}\right)\dd y \\
+      &= \frac{3}{20}
+  \end{align*}
+\end{mathpad}
+境界の上下関係を誤ると範囲が逆転するため, 図による確認が不可欠である
+\end{exproblem}
+
+\subsection{3重積分（累次積分）}
+\noindent\textbf{3重積分の累次積分}\par
+3次元領域 $E\subset\mathbb{R}^{3}$ 上で連続な関数 $f(x,y,z)$ に対し,
+3重積分は次で定義される:
+\begin{mathpad}
+  \[
+    \iiint_{E} f(x,y,z)\, \dd x \dd y \dd z.
+  \]
+\end{mathpad}
+$E$ を
+\begin{mathpad}
+  \[
+    E=\{(x,y,z)\mid a\le x\le b,\ g_{1}(x)\le y\le g_{2}(x),\ h_{1}(x,y)\le z\le h_{2}(x,y)\}
+  \]
+\end{mathpad}
+と書けるとき,
+\begin{mathpad}
+  \[
+    \iiint_{E} f(x,y,z)\, \dd x \dd y \dd z
+    = \int_{a}^{b}\!\left(\int_{g_{1}(x)}^{g_{2}(x)}\!\left(\int_{h_{1}(x,y)}^{h_{2}(x,y)} f(x,y,z)\, \dd z\right)\dd y\right)\dd x
+  \]
+\end{mathpad}
+として計算できる. 同様に, $x,y,z$ の順序は状況に応じて入れ替えられる.
+
+\begin{sidebox}{計算手順の要点}
+  \begin{enumerate}[label=(\arabic*),leftmargin=2.2em] %chktex 36
+    \item 領域を図示し, 断面が単純になる方向を探す.
+    \item 内側の積分変数の上下限を, 境界曲面から読み取る.
+    \item 外側の積分変数の範囲は, 投影領域の区間で決める.
+  \end{enumerate}
+  3重積分では, まず $xy$ 平面への投影を描き, その上で $z$ の範囲を決めるのが基本である.
+\end{sidebox}
+
+\begin{exproblem}{三角錐領域の体積}{ex:tetra-volume}
+  領域 $E=\{(x,y,z)\mid x\ge 0,\ y\ge 0,\ z\ge 0,\ x+y+z\le 1\}$ の体積
+  \[
+    V=\iiint_{E} 1\, \dd x \dd y \dd z
+  \]
+  を求めよ.
+\par\noindent\dotfill\par
+\noindent\textbf{解答}\par
+まず $xy$ 平面への投影を考えると,
+$0\le x\le 1,\ 0\le y\le 1-x$ である.
+各 $(x,y)$ に対し $z$ は $0\le z\le 1-x-y$ なので,
+体積はこの範囲で $1$ を積分すればよい
+\begin{mathpad}
+  \begin{align*}
+    V
+      &= \int_{0}^{1}\!\left(\int_{0}^{1-x}\!\left(\int_{0}^{1-x-y} 1\, \dd z\right)\dd y\right)\dd x \\
+      &= \int_{0}^{1}\!\left(\int_{0}^{1-x} (1-x-y)\, \dd y\right)\dd x \\
+      &= \int_{0}^{1}\!\left(\Biggl[\vphantom{\frac{y^{2}}{2}}(1-x)y-\frac{y^{2}}{2}\Biggr]{}_{\raisebox{-1.1ex}{$y=0$}}^{\raisebox{1.2ex}{$y=1-x$}}\right)\dd x \\
+      &= \int_{0}^{1}\!\left(\frac{{(1-x)}^{2}}{2}\right)\dd x \\
+      &= \frac{1}{6}
+  \end{align*}
+\end{mathpad}
+\end{exproblem}
+
+\begin{exproblem}{三重積分の具体計算}{ex:tetra-linear}
+  同じ領域 $E$ で
+  \[
+    I=\iiint_{E} (x+y+z)\, \dd x \dd y \dd z
+  \]
+  を求めよ.
+\par\noindent\dotfill\par
+\noindent\textbf{解答}\par
+前問と同じ投影を用い, 同じ順序で計算する
+先に $z$ で積分して一次式を整理し, その後 $y,x$ の順に計算する
+\begin{mathpad}
+  \begin{align*}
+    I
+      &= \int_{0}^{1}\!\left(\int_{0}^{1-x}\!\left(\int_{0}^{1-x-y} (x+y+z)\, \dd z\right)\dd y\right)\dd x \\
+      &= \int_{0}^{1}\!\left(\int_{0}^{1-x}\!\left(\biggl[(x+y)z+\frac{z^{2}}{2}\biggr]{}_{\raisebox{-1.1ex}{$z=0$}}^{\raisebox{1.2ex}{$z=1-x-y$}}\right)\dd y\right)\dd x \\
+      &= \int_{0}^{1}\!\left(\int_{0}^{1-x}\!\left((x+y)(1-x-y)+\frac{{(1-x-y)}^{2}}{2}\right)\dd y\right)\dd x \\
+      &= \frac{1}{8}
+  \end{align*}
+\end{mathpad}
+\end{exproblem}
+
+\subsection{変数変換による重積分の計算}
+\noindent\textbf{変数変換の基本公式}\par
+2変数の変換
+\[
+  x=x(u,v),\quad y=y(u,v)
+\]
+が $1$ 対 $1$ 対応で滑らかに与えられるとき,
+領域 $D$ に対する重積分は
+\begin{mathpad}
+  \[
+    \iint_{D} f(x,y)\, \dd x \dd y
+    = \iint_{D'} f\bigl(x(u,v),y(u,v)\bigr)\, \abs{\pdv{(x,y)}{(u,v)}}\, \dd u \dd v
+  \]
+\end{mathpad}
+と変換できる. ここで $D'$ は $(u,v)$ 平面での対応領域であり,
+ヤコビアンは
+\[
+  \pdv{(x,y)}{(u,v)}
+  = \begingroup
+    \setlength{\arraycolsep}{7pt}
+    \renewcommand{\arraystretch}{1.2}
+    \left|\begin{array}{cc}
+      \textstyle \pdv{x}{u} & \textstyle \pdv{x}{v} \\
+      \textstyle \pdv{y}{u} & \textstyle \pdv{y}{v}
+    \end{array}\right|
+    \endgroup
+\]
+である.
+
+\begin{sidebox}{境界式の求め方}
+  \begin{itemize}[leftmargin=2.2em]
+    \item 領域の境界を方程式で表し, 変数変換を代入して $(u,v)$ の条件に直す
+    \item 不等式の向きと範囲（$\theta$ の区間など）を図で確認する
+    \item 変換後の領域が単純になる順に, 条件を整理して積分範囲を決める
+  \end{itemize}
+\end{sidebox}
+
+\begin{exproblem}{一次変換による領域の直方化}{ex:linear-change}
+  変換
+  \[
+    x=2u+v,\quad y=u+2v
+  \]
+  により得られる領域 $D$ 上で
+  \[
+    I=\iint_{D} (x+y)\, \dd x \dd y
+  \]
+  を求めよ. ただし $0\le u\le 1,\ 0\le v\le 1$ とする.
+  \par\noindent\dotfill\par
+  \noindent\textbf{解答}\par
+  変換は一次なので, 対応領域は $D'=\{(u,v)\mid 0\le u\le 1,\ 0\le v\le 1\}$ となる.
+  まずヤコビアンを求めると,
+  \[
+    \pdv{(x,y)}{(u,v)}
+    = \begin{vmatrix}
+        2 & 1 \\
+        1 & 2
+      \end{vmatrix}
+    = 3
+  \]
+  である. また $x+y=3u+3v$ なので
+  \begin{mathpad}
+    \begin{align*}
+      I
+        &= \int_{0}^{1}\!\left(\int_{0}^{1} (3u+3v)\cdot 3\, \dd v\right)\dd u \\
+        &= 9\int_{0}^{1}\!\left(\left[uv+\frac{v^{2}}{2}\right]{}_{\raisebox{-1.1ex}{$v=0$}}^{\raisebox{1.2ex}{$v=1$}}\right)\dd u \\
+        &= 9\int_{0}^{1}\!\left(u+\frac{1}{2}\right)\dd u \\
+        &= 9\biggl[\frac{u^{2}}{2}+\frac{u}{2}\biggr]{}_{\raisebox{-1.1ex}{$u=0$}}^{\raisebox{1.2ex}{$u=1$}} \\
+        &= 9
+    \end{align*}
+  \end{mathpad}
+\end{exproblem}
+
+\begin{exproblem}{極座標変換による円盤領域}{ex:polar-change}
+  単位円盤 $x^{2}+y^{2}\le 1$ 上で
+  \[
+    I=\iint_{D} (x^{2}+y^{2})\, \dd x \dd y
+  \]
+  を求めよ.
+  \par\noindent\dotfill\par
+  \noindent\textbf{解答}\par
+  極座標 $x=r\cos\theta,\ y=r\sin\theta$ を用いると,
+  $x^{2}+y^{2}=r^{2}$, ヤコビアンは $r$ である.
+  領域は $0\le r\le 1,\ 0\le \theta\le 2\pi$ となるので
+  \begin{mathpad}
+    \begin{align*}
+      I
+        &= \int_{0}^{2\pi}\!\left(\int_{0}^{1} r^{2}\cdot r\, \dd r\right)\dd \theta \\
+        &= \int_{0}^{2\pi}\!\left(\biggl[\frac{r^{4}}{4}\biggr]{}_{\raisebox{-1.1ex}{$r=0$}}^{\raisebox{1.2ex}{$r=1$}}\right)\dd \theta \\
+        &= \int_{0}^{2\pi}\!\left(\frac{1}{4}\right)\dd \theta \\
+        &= \frac{\pi}{2}
+    \end{align*}
+  \end{mathpad}
+\end{exproblem}
+
+\begin{exproblem}{円の平行移動と変数変換の選択}{ex:shifted-circle}
+  領域
+  \[
+    D=\{(x,y)\mid x^{2}+y^{2}\le 2y\}
+  \]
+  上で
+  \[
+    I=\iint_{D} (x^{2}+y^{2})\, \dd x \dd y
+  \]
+  を求めよ.
+  \par\noindent\dotfill\par
+  \noindent\textbf{解答}\par
+  変数変換は, 領域の境界が簡単になるかを重視して選ぶ.
+  本問では $x^{2}+y^{2}=2y$ は円 ${x}^{2}+{(y-1)}^{2}=1$ を表すので,
+  極座標 $x=r\cos\theta,\ y=r\sin\theta$ を用いると,
+  境界式 $x^{2}+y^{2}=2y$ は
+  \[
+    r^{2}=2r\sin\theta
+  \]
+  となる. ここで $r\ge 0$ より
+  \[
+    r=2\sin\theta
+  \]
+  が境界となる（図を参照）. よって
+  \[
+    0\le \theta\le \pi,\quad 0\le r\le 2\sin\theta
+  \]
+  であり, ヤコビアンは $r$ である.
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.52\linewidth]{img/fig1-4.pdf} %chktex 8
+    \caption{境界 $x^{2}+y^{2}=2y$ と角度 $\theta$ の取り方}
+    {}\label{fig:shifted-circle-boundary}
+  \end{figure}
+  \begin{mathpad}
+    \begin{align*}
+      I
+        &= \int_{0}^{\pi}\!\left(\int_{0}^{2\sin\theta} r^{2}\cdot r\, \dd r\right)\dd \theta \\
+        &= \int_{0}^{\pi}\!\left(\biggl[\frac{r^{4}}{4}\biggr]{}_{\raisebox{-1.1ex}{$r=0$}}^{\raisebox{1.2ex}{$r=2\sin\theta$}}\right)\dd \theta \\
+        &= \int_{0}^{\pi} 4{\sin\theta}^{4}\, \dd \theta \\
+        &= \frac{3\pi}{2}
+    \end{align*}
+  \end{mathpad}
+  境界式が単純になる変数変換を選ぶと, 積分範囲の決定と計算が効率化される
+\end{exproblem}
+
+\begin{exproblem}{円柱座標による体積計算}{ex:cylindrical-change}
+  円柱領域 $x^{2}+y^{2}\le 1,\ 0\le z\le 2$ の体積
+  \[
+    V=\iiint_{E} 1\, \dd x \dd y \dd z
+  \]
+  を求めよ.
+  \par\noindent\dotfill\par
+  \noindent\textbf{解答}\par
+  円柱座標 $x=r\cos\theta,\ y=r\sin\theta,\ z=z$ を用いる.
+  ヤコビアンは $r$ であり, 領域は
+  $0\le r\le 1,\ 0\le \theta\le 2\pi,\ 0\le z\le 2$ となる.
+  \begin{mathpad}
+    \begin{align*}
+      V
+        &= \int_{0}^{2\pi}\!\left(\int_{0}^{1}\!\left(\int_{0}^{2} 1\cdot r\, \dd z\right)\dd r\right)\dd \theta \\
+        &= \int_{0}^{2\pi}\!\left(\int_{0}^{1} 2r\, \dd r\right)\dd \theta \\
+        &= \int_{0}^{2\pi}\!\left(\biggl[r^{2}\biggr]{}_{\raisebox{-1.1ex}{$r=0$}}^{\raisebox{1.2ex}{$r=1$}}\right)\dd \theta \\
+        &= 2\pi
+    \end{align*}
+  \end{mathpad}
+\end{exproblem}
+
+\begin{sidebox}{ヤコビアンのまとめ}
+  \begin{itemize}[leftmargin=2.2em]
+    \setlength{\itemsep}{4pt}
+    \setlength{\parsep}{2pt}
+    \item 2変数一般変換: $\abs{\pdv{(x,y)}{(u,v)}}$
+    \item 3変数一般変換: $\abs{\pdv{(x,y,z)}{(u,v,w)}}$
+    \item $n$ 変数一般変換: $\abs{\pdv{(x_{1},\ldots,x_{n})}{(u_{1},\ldots,u_{n})}}$
+    \item 極座標: $x=r\cos\theta,\ y=r\sin\theta,\ J=r$
+    \item 円柱座標: $x=r\cos\theta,\ y=r\sin\theta,\ z=z,\ J=r$
+    \item 球座標: $x=r\sin\phi\cos\theta,\ y=r\sin\phi\sin\theta,\ z=r\cos\phi,\ J=r^{2}\sin\phi$
+  \end{itemize}
+\end{sidebox}
+
+\end{document}

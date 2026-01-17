@@ -1,0 +1,160 @@
+
+% ==============================================
+% preamble.tex
+% ユーザー定義のコマンド、環境、レイアウト設定などを記述
+% ==============================================
+
+% ---- レイアウト設定 (geometry) ----
+\usepackage{geometry}
+\geometry{top=25mm,bottom=25mm,left=25mm,right=25mm}
+
+% ---- 数式番号を章ごとに (1.1) のようにする ----
+\numberwithin{equation}{section}
+
+% ---- mathpad: 数式ブロックにだけ余白を付ける環境 ----
+\newtcolorbox{mathpad}{%
+  enhanced,
+  frame hidden,
+  boxrule=0pt,
+  colback=white,
+  opacityback=0,
+  left=6mm,right=6mm,
+  top=2mm,bottom=2mm,
+  boxsep=0pt,
+  before skip=2pt,
+  after skip=2pt,
+  before upper={\setlength{\jot}{5pt}},
+}
+
+% ---- pstep: (i) みたいな手順表示（改ページ可能版） ----
+\newlength{\pstepindent}
+\setlength{\pstepindent}{3.2em}
+
+\NewDocumentEnvironment{pstep}{m}{%
+  \begin{list}{}{%
+    \setlength{\leftmargin}{\pstepindent}%
+    \setlength{\labelwidth}{\pstepindent}%
+    \setlength{\labelsep}{0pt}%
+    \setlength{\itemindent}{0pt}%
+    \setlength{\topsep}{0pt}%
+    \setlength{\partopsep}{0pt}%
+    \setlength{\parsep}{0pt}%
+    \setlength{\itemsep}{0pt}%
+  }%
+  \item[\textbf{(#1)}]%
+  \leavevmode\par\nobreak\noindent\ignorespaces%
+  % display数式まわりの詰め（必要なら調整）
+  \setlength{\abovedisplayskip}{2pt}%
+  \setlength{\belowdisplayskip}{2pt}%
+  \setlength{\abovedisplayshortskip}{1pt}%
+  \setlength{\belowdisplayshortskip}{1pt}%
+}{%
+  \end{list}%
+}
+
+% ---- \xoverline{...}: 少し長めの上線（複素共役などで使う） ----
+\makeatletter
+\newsavebox{\xoverline@boxA}
+\newsavebox{\xoverline@boxB}
+\newcommand*\xoverline[2][0.75]{%
+  \sbox{\xoverline@boxA}{$\m@th#2$}%
+  \setbox\xoverline@boxB\null%
+  \ht\xoverline@boxB=\ht\xoverline@boxA%
+  \dp\xoverline@boxB=\dp\xoverline@boxA%
+  \wd\xoverline@boxB=#1\wd\xoverline@boxA%
+  \sbox{\xoverline@boxB}{$\m@th\overline{\copy\xoverline@boxB}$}%
+  \setlength\@tempdima{\wd\xoverline@boxA}%
+  \addtolength\@tempdima{-\wd\xoverline@boxB}%
+  \ifdim\wd\xoverline@boxB<\wd\xoverline@boxA%
+    \rlap{\hskip 0.5\@tempdima\usebox{\xoverline@boxB}}%
+    \usebox{\xoverline@boxA}%
+  \else
+    \usebox{\xoverline@boxB}%
+  \fi
+}
+\makeatother
+
+% ---- tcolorbox 互換: \tcbbreak が無い環境用 ----
+\makeatletter
+\providecommand{\tcbbreak}[1][]{%
+  \par\pagebreak[2]\par
+}
+\makeatother
+
+% ---- その他 演算子定義 ----
+\DeclareMathOperator{\Arg}{Arg}
+
+% ここに追加のコマンドを定義してください
+% --- preamble に追加 ---
+\usepackage{titlesec}
+%\usepackage[most]{tcolorbox}
+\usepackage{tikz}
+\usepackage{xcolor}
+\tcbuselibrary{skins}
+% 色（適当に）
+\definecolor{SecBlack}{HTML}{2B2B2B}
+\definecolor{SubGray}{HTML}{E6E6E6}
+\definecolor{RuleGray}{HTML}{9A9A9A}
+
+% ===== section（上のやつ：左に黒い角丸、右にタイトル＋下に線） =====
+\newcommand{\MySectionFormat}[1]{%
+  \noindent
+  % 左の黒い角丸（"Chapter 9"の雰囲気）
+  \tcbox[
+    on line,
+    arc=10pt,
+    boxrule=0pt,
+    colback=SecBlack,
+    coltext=white,
+    left=10pt,right=10pt,top=8pt,bottom=8pt
+  ]{%
+    \sffamily\bfseries
+    \begin{tabular}{c}
+      \raisebox{1.2ex}{Chapter}\\[-2pt]
+      \raisebox{-1.0ex}{{\fontsize{32}{32}\selectfont \thesection}}
+    \end{tabular}
+  }%
+\hspace{0.9em}%
+\begin{minipage}[c]{\dimexpr\linewidth-4.2cm-0.9em\relax}
+  {\bfseries\fontsize{28}{30}\selectfont #1}
+\end{minipage}\par
+  \vspace{0.3em}
+  {\color{RuleGray}\rule{\linewidth}{0.6pt}}\par
+}
+
+\titleformat{\section}[block]
+  {\normalfont}{}{0pt}{\MySectionFormat}
+
+\titlespacing*{\section}{0pt}{2.0ex}{1.2ex}
+% ===== subsection（見本寄せ：左だけ濃グレー帯＋外枠角丸） =====
+\newlength{\SubLeftW}
+\setlength{\SubLeftW}{2.8cm} % 左帯の幅
+
+\newcommand{\MySubsectionFormat}[1]{%
+  \begin{tcolorbox}[
+    enhanced,
+    colback=white,
+    colframe=RuleGray,
+    boxrule=0.8pt,
+    arc=14pt,
+    boxsep=0pt,
+    left=\dimexpr\SubLeftW+1.0em\relax,
+    right=1.0em,
+    top=0.55em,
+    bottom=0.55em,
+    valign=center,
+    overlay={%
+      \begin{tcbclipinterior}
+        \fill[SecBlack]
+          (frame.north west) rectangle ([xshift=\SubLeftW]frame.south west);
+      \end{tcbclipinterior}
+      \node[font=\bfseries\Large, text=white]
+        at ([xshift=0.5\SubLeftW]frame.west) {\thesubsection};
+    },
+  ]%
+    {\bfseries\Large #1}%
+  \end{tcolorbox}%
+}
+
+\titleformat{\subsection}[block]{\normalfont}{}{0pt}{\MySubsectionFormat}
+\titlespacing*{\subsection}{0pt}{1.2ex}{0.8ex}
