@@ -13,16 +13,16 @@
 上で連続な関数 $f(x,y)$ に対し, 重積分は次で定義される:
 \begin{mathpad}
   \[
-    \iint_{D} f(x,y)\, \dd x \dd y.
+    \iint_{D} f(x,y)\hspace{0.1em}dx dy.
   \]
 \end{mathpad}
 この積分は, $xy$ 平面上の底面 $D$ と高さ $f(x,y)$ で張られる立体の体積を表す.
 また, 1変数積分の反復として
 \begin{mathpad}
   \[
-    \iint_{D} f(x,y)\, \dd x \dd y
-    = \int_{a}^{b}\!\left(\int_{c}^{d} f(x,y)\, \dd y\right)\dd x
-    = \int_{c}^{d}\!\left(\int_{a}^{b} f(x,y)\, \dd x\right)\dd y
+    \iint_{D} f(x,y)\hspace{0.1em}dx dy
+    = \int_a^{b}\!\left(\int_c^{d} f(x,y)\hspace{0.1em}dy\right)dx
+    = \int_c^{d}\!\left(\int_a^{b} f(x,y)\hspace{0.1em}dx\right)dy
   \]
 \end{mathpad}
 が成り立つ. この形を累次積分という.
@@ -31,9 +31,9 @@
   閉領域 $D$ 上で $f(x,y)$ が連続ならば, 重積分は累次積分として計算できる:
   \begin{mathpad}
     \[
-      \iint_{D} f(x,y)\, \dd x \dd y
-      = \int_{a}^{b}\!\left(\int_{g_{1}(x)}^{g_{2}(x)} f(x,y)\, \dd y\right)\dd x
-      = \int_{c}^{d}\!\left(\int_{h_{1}(y)}^{h_{2}(y)} f(x,y)\, \dd x\right)\dd y.
+      \iint_{D} f(x,y)\hspace{0.1em}dx dy
+      = \int_a^{b}\!\left(\int_{g_{1}(x)}^{g_{2}(x)} f(x,y)\hspace{0.1em}dy\right)dx
+      = \int_c^{d}\!\left(\int_{h_{1}(y)}^{h_{2}(y)} f(x,y)\hspace{0.1em}dx\right)dy.
     \]
   \end{mathpad}
   領域の表し方に応じて積分順序を選ぶのが基本である.
@@ -41,7 +41,7 @@
 
 \begin{exproblem}{長方形領域での基本計算}{ex:rect-basic}
   \[
-    I=\iint_{D} (x+2y)\, \dd x \dd y,\quad D=\{(x,y)\mid 0\le x\le 2,\ 1\le y\le 3\}
+    I=\iint_{D} (x+2y)\hspace{0.1em}dx dy,\quad D=\{(x,y)\mid 0\le x\le 2,\ 1\le y\le 3\}
   \]
   を求めよ.
 \par\noindent\dotfill\par
@@ -51,11 +51,11 @@
 \begin{mathpad}
   \begin{align*}
     I
-      &= \int_{0}^{2}\!\left(\int_{1}^{3}(x+2y)\, \dd y\right)\dd x \\
-      &= \int_{0}^{2}\!\left(\biggl[xy+y^{2}\biggr]{}_{\raisebox{-1.1ex}{$y=1$}}^{\raisebox{1.2ex}{$y=3$}}\right)\dd x \\
-      &= \int_{0}^{2}\!\left((3x+9)-(x+1)\right)\dd x \\
-      &= \int_{0}^{2}\!\left(2x+8\right)\dd x \\
-      &= \biggl[x^{2}+8x\biggr]{}_{\raisebox{-1.1ex}{$x=0$}}^{\raisebox{1.2ex}{$x=2$}} \\
+      &= \int_{0}^{2}\!\left(\int_{1}^{3}(x+2y)\hspace{0.1em}dy\right)dx \\
+      &= \int_{0}^{2}\!\left(\left[\textstyle xy+y^{2}\right]{}_{\raisebox{-1.1ex}{$\scriptstyle y=1$}}^{\raisebox{1.2ex}{$\scriptstyle y=3$}}\right)dx \\ %chktex 1
+      &= \int_{0}^{2}\!\left((3x+9)-(x+1)\right)dx \\
+      &= \int_{0}^{2}\!\left(2x+8\right)dx \\
+      &= \Bigl[\textstyle x^{2}+8x\Bigr]{}_{\raisebox{-1.1ex}{$\scriptstyle x=0$}}^{\raisebox{1.2ex}{$\scriptstyle x=2$}} \\ %chktex 1
       &= 20
   \end{align*}
 \end{mathpad}
@@ -72,8 +72,8 @@
 と表せるとき, $y$ を内側に取る累次積分で計算する:
 \begin{mathpad}
   \[
-    \iint_{D} f(x,y)\, \dd x \dd y
-    = \int_{a}^{b}\!\left(\int_{g_{1}(x)}^{g_{2}(x)} f(x,y)\, \dd y\right)\dd x.
+    \iint_{D} f(x,y)\hspace{0.1em}dx dy
+    = \int_a^{b}\!\left(\int_{g_{1}(x)}^{g_{2}(x)} f(x,y)\hspace{0.1em}dy\right)dx.
   \]
 \end{mathpad}
 
@@ -87,8 +87,8 @@
 と表せるとき, $x$ を内側に取る累次積分で計算する:
 \begin{mathpad}
   \[
-    \iint_{D} f(x,y)\, \dd x \dd y
-    = \int_{c}^{d}\!\left(\int_{h_{1}(y)}^{h_{2}(y)} f(x,y)\, \dd x\right)\dd y.
+    \iint_{D} f(x,y)\hspace{0.1em}dx dy
+    = \int_c^{d}\!\left(\int_{h_{1}(y)}^{h_{2}(y)} f(x,y)\hspace{0.1em}dx\right)dy.
   \]
 \end{mathpad}
 
@@ -99,7 +99,7 @@
 
 \begin{exproblem}{積分順序の交換}{ex:order-change}
   \[
-    I=\iint_{D} (x+y)\, \dd x \dd y,\quad D=\{(x,y)\mid 0\le x\le 1,\ x^{2}\le y\le x\}
+    I=\iint_{D} (x+y)\hspace{0.1em}dx dy,\quad D=\{(x,y)\mid 0\le x\le 1,\ x^{2}\le y\le x\}
   \]
   を求めよ.
 \par\noindent\dotfill\par
@@ -110,10 +110,10 @@ $y$ を固定すると $x$ の範囲は $y\le x\le \sqrt{y}$ となるので,
 \begin{mathpad}
   \begin{align*}
     I
-      &= \int_{0}^{1}\!\left(\int_{y}^{\sqrt{y}}(x+y)\, \dd x\right)\dd y \\
-      &= \int_{0}^{1}\!\left(\biggl[\dfrac{\:x^{2}\:}{\:\:2\:}+yx\biggr]{}_{\raisebox{-1.1ex}{$x=y$}}^{\raisebox{1.2ex}{$x=\sqrt{y}$}}\right)\dd y \\
-      &= \int_{0}^{1}\!\left(\dfrac{\:y\:}{\:\:2\:}+y^{\tfrac{\:3\:}{\:\:2\:}}-\dfrac{\:y^{2}\:}{\:\:2\:}-y^{2}\right)\dd y \\
-      &= \int_{0}^{1}\!\left(\dfrac{\:1\:}{\:\:2\:}y+y^{\tfrac{\:3\:}{\:\:2\:}}-\dfrac{\:3\:}{\:\:2\:}y^{2}\right)\dd y \\
+      &= \int_{0}^{1}\!\left(\int_y^{\sqrt{y}}(x+y)\hspace{0.1em}dx\right)dy \\
+      &= \int_{0}^{1}\!\left(\left[\textstyle \dfrac{\:x^{2}\:}{\:\:2\:}+yx\right]{}_{\raisebox{-1.1ex}{$\scriptstyle x=y$}}^{\raisebox{1.2ex}{$\scriptstyle x=\sqrt{y}$}}\right)dy \\ %chktex 1
+      &= \int_{0}^{1}\!\left(\dfrac{\:y\:}{\:\:2\:}+y^{\tfrac{\:3\:}{\:\:2\:}}-\dfrac{\:y^{2}\:}{\:\:2\:}-y^{2}\right)dy \\
+      &= \int_{0}^{1}\!\left(\dfrac{\:1\:}{\:\:2\:}y+y^{\tfrac{\:3\:}{\:\:2\:}}-\dfrac{\:3\:}{\:\:2\:}y^{2}\right)dy \\
       &= \dfrac{\:3\:}{\:\:20\:}
   \end{align*}
 \end{mathpad}
@@ -126,7 +126,7 @@ $y$ を固定すると $x$ の範囲は $y\le x\le \sqrt{y}$ となるので,
 3重積分は次で定義される:
 \begin{mathpad}
   \[
-    \iiint_{E} f(x,y,z)\, \dd x \dd y \dd z.
+    \iiint_{E} f(x,y,z)\hspace{0.1em}dx dy dz.
   \]
 \end{mathpad}
 $E$ を
@@ -138,8 +138,8 @@ $E$ を
 と書けるとき,
 \begin{mathpad}
   \[
-    \iiint_{E} f(x,y,z)\, \dd x \dd y \dd z
-    = \int_{a}^{b}\!\left(\int_{g_{1}(x)}^{g_{2}(x)}\!\left(\int_{h_{1}(x,y)}^{h_{2}(x,y)} f(x,y,z)\, \dd z\right)\dd y\right)\dd x
+    \iiint_{E} f(x,y,z)\hspace{0.1em}dx dy dz
+    = \int_a^{b}\!\left(\int_{g_{1}(x)}^{g_{2}(x)}\!\left(\int_{h_{1}(x,y)}^{h_{2}(x,y)} f(x,y,z)\hspace{0.1em}dz\right)dy\right)dx
   \]
 \end{mathpad}
 として計算できる. 同様に, $x,y,z$ の順序は状況に応じて入れ替えられる.
@@ -155,7 +155,7 @@ $E$ を
 
 \begin{exproblem}{三角錐領域の体積}{ex:tetra-volume}
   \[
-    V=\iiint_{E} 1\, \dd x \dd y \dd z,\quad E=\{(x,y,z)\mid x\ge 0,\ y\ge 0,\ z\ge 0,\ x+y+z\le 1\}
+    V=\iiint_{E} 1\hspace{0.1em}dx dy dz,\quad E=\{(x,y,z)\mid x\ge 0,\ y\ge 0,\ z\ge 0,\ x+y+z\le 1\}
   \]
   を求めよ.
 \par\noindent\dotfill\par
@@ -167,10 +167,10 @@ $0\le x\le 1,\ 0\le y\le 1-x$ である.
 \begin{mathpad}
   \begin{align*}
     V
-      &= \int_{0}^{1}\!\left(\int_{0}^{1-x}\!\left(\int_{0}^{1-x-y} 1\, \dd z\right)\dd y\right)\dd x \\
-      &= \int_{0}^{1}\!\left(\int_{0}^{1-x} (1-x-y)\, \dd y\right)\dd x \\
-      &= \int_{0}^{1}\!\left(\Biggl[\vphantom{\dfrac{\:y^{2}\:}{\:\:2\:}}(1-x)y-\dfrac{\:y^{2}\:}{\:\:2\:}\Biggr]{}_{\raisebox{-1.1ex}{$y=0$}}^{\raisebox{1.2ex}{$y=1-x$}}\right)\dd x \\
-      &= \int_{0}^{1}\!\left(\dfrac{\:{(1-x)}^{2}\:}{\:\:2\:}\right)\dd x \\
+      &= \int_{0}^{1}\!\left(\int_{0}^{1-x}\!\left(\int_{0}^{1-x-y} 1\hspace{0.1em}dz\right)dy\right)dx \\
+      &= \int_{0}^{1}\!\left(\int_{0}^{1-x} (1-x-y)\hspace{0.1em}dy\right)dx \\
+      &= \int_{0}^{1}\!\left(\left[\textstyle \vphantom{\dfrac{\:y^{2}\:}{\:\:2\:}}(1-x)y-\dfrac{\:y^{2}\:}{\:\:2\:}\right]{}_{\raisebox{-1.1ex}{$\scriptstyle y=0$}}^{\raisebox{1.2ex}{$\scriptstyle y=1-x$}}\right)dx \\ %chktex 1
+      &= \int_{0}^{1}\!\left(\dfrac{\:(1-x){}^{2}\:}{\:\:2\:}\right)dx \\
       &= \dfrac{\:1\:}{\:\:6\:}
   \end{align*}
 \end{mathpad}
@@ -178,7 +178,7 @@ $0\le x\le 1,\ 0\le y\le 1-x$ である.
 
 \begin{exproblem}{三重積分の具体計算}{ex:tetra-linear}
   \[
-    I=\iiint_{E} (x+y+z)\, \dd x \dd y \dd z,\quad E=\{(x,y,z)\mid x\ge 0,\ y\ge 0,\ z\ge 0,\ x+y+z\le 1\}
+    I=\iiint_{E} (x+y+z)\hspace{0.1em}dx dy dz,\quad E=\{(x,y,z)\mid x\ge 0,\ y\ge 0,\ z\ge 0,\ x+y+z\le 1\}
   \]
   を求めよ.
 \par\noindent\dotfill\par
@@ -188,14 +188,14 @@ $0\le x\le 1,\ 0\le y\le 1-x$ である.
 \begin{mathpad}
   \begin{align*}
     I
-      &= \int_{0}^{1}\!\left(\int_{0}^{1-x}\!\left(\int_{0}^{1-x-y} (x+y+z)\, \dd z\right)\dd y\right)\dd x \\
-      &= \int_{0}^{1}\!\left(\int_{0}^{1-x}\!\left(\biggl[(x+y)z+\dfrac{\:z^{2}\:}{\:\:2\:}\biggr]{}_{\raisebox{-1.1ex}{$z=0$}}^{\raisebox{1.2ex}{$z=1-x-y$}}\right)\dd y\right)\dd x \\
-      &= \int_{0}^{1}\!\left(\int_{0}^{1-x}\!\left((x+y)(1-x-y)+\dfrac{\:{(1-x-y)}^{2}\:}{\:\:2\:}\right)\dd y\right)\dd x \\
-      &= \int_{0}^{1}\!\left(\int_{0}^{1-x}\!\left((1-x-y)-\dfrac{\:{(1-x-y)}^{2}\:}{\:\:2\:}\right)\dd y\right)\dd x \\
-      &\quad \text{ここで }(x+y-1+1)(1-x-y)=1-x-y-{(1-x-y)}^{2} \text{ を用いて整理した} \\
-      &= \int_{0}^{1}\!\left(\biggl[-\dfrac{\:{(1-x-y)}^{2}\:}{\:\:2\:}+\dfrac{\:{(1-x-y)}^{3}\:}{\:\:6\:}\biggr]{}_{\raisebox{-1.1ex}{$y=0$}}^{\raisebox{1.2ex}{$y=1-x$}}\right)\dd x \\
-      &= \int_{0}^{1}\!\left(\dfrac{\:{(1-x)}^{2}\:}{\:\:2\:}-\dfrac{\:{(1-x)}^{3}\:}{\:\:6\:}\right)\dd x \\
-      &= \biggl[-\dfrac{\:{(1-x)}^{3}\:}{\:\:6\:}+\dfrac{\:{(1-x)}^{4}\:}{\:\:24\:}\biggr]{}_{\raisebox{-1.1ex}{$x=0$}}^{\raisebox{1.2ex}{$x=1$}} \\
+      &= \int_{0}^{1}\!\left(\int_{0}^{1-x}\!\left(\int_{0}^{1-x-y} (x+y+z)\hspace{0.1em}dz\right)dy\right)dx \\
+      &= \int_{0}^{1}\!\left(\int_{0}^{1-x}\!\left(\left[\textstyle (x+y)z+\dfrac{\:z^{2}\:}{\:\:2\:}\right]{}_{\raisebox{-1.1ex}{$\scriptstyle z=0$}}^{\raisebox{1.2ex}{$\scriptstyle z=1-x-y$}}\right)dy\right)dx \\ %chktex 1
+      &= \int_{0}^{1}\!\left(\int_{0}^{1-x}\!\left((x+y)(1-x-y)+\dfrac{\:(1-x-y){}^{2}\:}{\:\:2\:}\right)dy\right)dx \\
+      &= \int_{0}^{1}\!\left(\int_{0}^{1-x}\!\left((1-x-y)-\dfrac{\:(1-x-y){}^{2}\:}{\:\:2\:}\right)dy\right)dx \\
+      &\quad \text{ここで }(x+y-1+1)(1-x-y)=1-x-y-(1-x-y){}^{2} \text{ を用いて整理した} \\
+      &= \int_{0}^{1}\!\left(\left[\textstyle -\dfrac{\:(1-x-y){}^{2}\:}{\:\:2\:}+\dfrac{\:(1-x-y){}^{3}\:}{\:\:6\:}\right]{}_{\raisebox{-1.1ex}{$\scriptstyle y=0$}}^{\raisebox{1.2ex}{$\scriptstyle y=1-x$}}\right)dx \\ %chktex 1
+      &= \int_{0}^{1}\!\left(\dfrac{\:(1-x){}^{2}\:}{\:\:2\:}-\dfrac{\:(1-x){}^{3}\:}{\:\:6\:}\right)dx \\
+      &= \left[\textstyle -\dfrac{\:(1-x){}^{3}\:}{\:\:6\:}+\dfrac{\:(1-x){}^{4}\:}{\:\:24\:}\right]{}_{\raisebox{-1.1ex}{$\scriptstyle x=0$}}^{\raisebox{1.2ex}{$\scriptstyle x=1$}} \\ %chktex 1
       &= \dfrac{\:1\:}{\:\:8\:}
   \end{align*}
 \end{mathpad}
@@ -211,8 +211,8 @@ $0\le x\le 1,\ 0\le y\le 1-x$ である.
 領域 $D$ に対する重積分は
 \begin{mathpad}
   \[
-    \iint_{D} f(x,y)\, \dd x \dd y
-    = \iint_{D'} f\bigl(x(u,v),y(u,v)\bigr)\, \abs{\pdv{(x,y)}{(u,v)}}\, \dd u \dd v
+    \iint_{D} f(x,y)\hspace{0.1em}dx dy
+    = \iint_{D'} f\bigl(x(u,v),y(u,v)\bigr)\, \abs{\pdv{(x,y)}{(u,v)}}\hspace{0.1em}du dv
   \]
 \end{mathpad}
 と変換できる. ここで $D'$ は $(u,v)$ 平面での対応領域であり,
@@ -244,7 +244,7 @@ $0\le x\le 1,\ 0\le y\le 1-x$ である.
     x=2u+v,\quad y=u+2v
   \]
   \[
-    I=\iint_{D} (x+y)\, \dd x \dd y,\quad D=\{(x,y)\mid x=2u+v,\ y=u+2v,\ 0\le u\le 1,\ 0\le v\le 1\}
+    I=\iint_{D} (x+y)\hspace{0.1em}dx dy,\quad D=\{(x,y)\mid x=2u+v,\ y=u+2v,\ 0\le u\le 1,\ 0\le v\le 1\}
   \]
   を求めよ.
   \par\noindent\dotfill\par
@@ -263,10 +263,10 @@ $0\le x\le 1,\ 0\le y\le 1-x$ である.
   \begin{mathpad}
     \begin{align*}
       I
-        &= \int_{0}^{1}\!\left(\int_{0}^{1} (3u+3v)\cdot 3\, \dd v\right)\dd u \\
-        &= 9\int_{0}^{1}\!\left(\left[uv+\dfrac{\:v^{2}\:}{\:\:2\:}\right]{}_{\raisebox{-1.1ex}{$v=0$}}^{\raisebox{1.2ex}{$v=1$}}\right)\dd u \\
-        &= 9\int_{0}^{1}\!\left(u+\dfrac{\:1\:}{\:\:2\:}\right)\dd u \\
-        &= 9\biggl[\dfrac{\:u^{2}\:}{\:\:2\:}+\dfrac{\:u\:}{\:\:2\:}\biggr]{}_{\raisebox{-1.1ex}{$u=0$}}^{\raisebox{1.2ex}{$u=1$}} \\
+        &= \int_{0}^{1}\!\left(\int_{0}^{1} (3u+3v)\cdot 3\hspace{0.1em}dv\right)du \\
+        &= 9\int_{0}^{1}\!\left(\left[\textstyle uv+\dfrac{\:v^{2}\:}{\:\:2\:}\right]{}_{\raisebox{-1.1ex}{$\scriptstyle v=0$}}^{\raisebox{1.2ex}{$\scriptstyle v=1$}}\right)du \\ %chktex 1
+        &= 9\int_{0}^{1}\!\left(u+\dfrac{\:1\:}{\:\:2\:}\right)du \\
+        &= 9\left[\textstyle \dfrac{\:u^{2}\:}{\:\:2\:}+\dfrac{\:u\:}{\:\:2\:}\right]{}_{\raisebox{-1.1ex}{$\scriptstyle u=0$}}^{\raisebox{1.2ex}{$\scriptstyle u=1$}} \\ %chktex 1
         &= 9
     \end{align*}
   \end{mathpad}
@@ -274,7 +274,7 @@ $0\le x\le 1,\ 0\le y\le 1-x$ である.
 
 \begin{exproblem}{極座標変換による円盤領域}{ex:polar-change}
   \[
-    I=\iint_{D} (x^{2}+y^{2})\, \dd x \dd y,\quad D=\{(x,y)\mid x^{2}+y^{2}\le 1\}
+    I=\iint_{D} (x^{2}+y^{2})\hspace{0.1em}dx dy,\quad D=\{(x,y)\mid x^{2}+y^{2}\le 1\}
   \]
   を求めよ.
   \par\noindent\dotfill\par
@@ -285,9 +285,9 @@ $0\le x\le 1,\ 0\le y\le 1-x$ である.
   \begin{mathpad}
     \begin{align*}
       I
-        &= \int_{0}^{2\pi}\!\left(\int_{0}^{1} r^{2}\cdot r\, \dd r\right)\dd \theta \\
-        &= \int_{0}^{2\pi}\!\left(\biggl[\dfrac{\:r^{4}\:}{\:\:4\:}\biggr]{}_{\raisebox{-1.1ex}{$r=0$}}^{\raisebox{1.2ex}{$r=1$}}\right)\dd \theta \\
-        &= \int_{0}^{2\pi}\!\left(\dfrac{\:1\:}{\:\:4\:}\right)\dd \theta \\
+        &= \int_{0}^{2\pi}\!\left(\int_{0}^{1} r^{2}\cdot r\hspace{0.1em}dr\right)d\theta \\
+        &= \int_{0}^{2\pi}\!\left(\left[\textstyle \dfrac{\:r^{4}\:}{\:\:4\:}\right]{}_{\raisebox{-1.1ex}{$\scriptstyle r=0$}}^{\raisebox{1.2ex}{$\scriptstyle r=1$}}\right)d\theta \\ %chktex 1
+        &= \int_{0}^{2\pi}\!\left(\dfrac{\:1\:}{\:\:4\:}\right)d\theta \\
         &= \dfrac{\:\pi\:}{\:\:2\:}
     \end{align*}
   \end{mathpad}
@@ -295,13 +295,13 @@ $0\le x\le 1,\ 0\le y\le 1-x$ である.
 
 \begin{exproblem}{円の平行移動と変数変換の選択}{ex:shifted-circle}
   \[
-    I=\iint_{D} (x^{2}+y^{2})\, \dd x \dd y,\quad D=\{(x,y)\mid x^{2}+y^{2}\le 2y\}
+    I=\iint_{D} (x^{2}+y^{2})\hspace{0.1em}dx dy,\quad D=\{(x,y)\mid x^{2}+y^{2}\le 2y\}
   \]
   を求めよ.
   \par\noindent\dotfill\par
   \noindent\textbf{【解答】}\par
   変数変換は, 領域の境界が簡単になるかを重視して選ぶ.
-  本問では $x^{2}+y^{2}=2y$ は円 ${x}^{2}+{(y-1)}^{2}=1$ を表すので,
+  本問では $x^{2}+y^{2}=2y$ は円 $x^{2}+(y-1){}^{2}=1$ を表すので,
   極座標 $x=r\cos\theta,\ y=r\sin\theta$ を用いると,
   境界式 $x^{2}+y^{2}=2y$ は
   \[
@@ -325,9 +325,9 @@ $0\le x\le 1,\ 0\le y\le 1-x$ である.
   \begin{mathpad}
     \begin{align*}
       I
-      &= \int_{0}^{\pi}\!\left(\int_{0}^{2\sin\theta} r^{2}\cdot r\, \dd r\right)\dd \theta \\
-      &= \int_{0}^{\pi}\!\left(\biggl[\dfrac{\:r^{4}\:}{\:\:4\:}\biggr]{}_{\raisebox{-1.1ex}{$r=0$}}^{\raisebox{1.2ex}{$r=2\sin\theta$}}\right)\dd \theta \\
-      &= \int_{0}^{\pi} 4{\sin\theta}^{4}\, \dd \theta \\
+      &= \int_{0}^{\pi}\!\left(\int_{0}^{2\sin\theta} r^{2}\cdot r\hspace{0.1em}dr\right)d\theta \\
+      &= \int_{0}^{\pi}\!\left(\left[\textstyle \dfrac{\:r^{4}\:}{\:\:4\:}\right]{}_{\raisebox{-1.1ex}{$\scriptstyle r=0$}}^{\raisebox{1.2ex}{$\scriptstyle r=2\sin\theta$}}\right)d\theta \\ %chktex 1
+      &= \int_{0}^{\pi} 4{\sin\theta}^{4}\hspace{0.1em}d\theta \\
       &= 4\cdot \dfrac{\:3\:}{\:4\:}\cdot \dfrac{\:\pi\:}{\:2\:} \\
       &= \dfrac{\:3\pi\:}{\:\:2\:}
     \end{align*}
@@ -340,7 +340,7 @@ $0\le x\le 1,\ 0\le y\le 1-x$ である.
       \renewcommand{\arraystretch}{1.45}
       \setlength{\extrarowheight}{2pt}
       \begin{array}{l|c|c}%chktex 44
-        & \displaystyle \int_{0}^{\pi/2} {\sin{}^n\theta}\, \dd \theta & \displaystyle \int_{0}^{\pi/2} {\cos{}^{n}\theta}\, \dd \theta \\
+        & \displaystyle \int_{0}^{\pi/2} {\sin{}^n\theta}\hspace{0.1em}d\theta & \displaystyle \int_{0}^{\pi/2} {\cos{}^{n}\theta}\hspace{0.1em}d\theta \\
         \hline%chktex 44
         n\:\text{が偶数} & \dfrac{\:n-1\:}{\:n\:}\cdot\dfrac{\:n-3\:}{\:n-2\:}\cdots\dfrac{\:1\:}{\:2\:}\cdot\dfrac{\:\pi\:}{\:2\:} & \dfrac{\:n-1\:}{\:n\:}\cdot\dfrac{\:n-3\:}{\:n-2\:}\cdots\dfrac{\:1\:}{\:2\:}\cdot\dfrac{\:\pi\:}{\:2\:} \\
         n\:\text{が奇数} & \dfrac{\:n-1\:}{\:n\:}\cdot\dfrac{\:n-3\:}{\:n-2\:}\cdots\dfrac{\:2\:}{\:3\:} & \dfrac{\:n-1\:}{\:n\:}\cdot\dfrac{\:n-3\:}{\:n-2\:}\cdots\dfrac{\:2\:}{\:3\:}
@@ -358,14 +358,14 @@ $0\le x\le 1,\ 0\le y\le 1-x$ である.
     \caption{対称性による区間分割}
     {}\label{fig:wallis-symmetry}
   \end{figure}
-  \[\int_{0}^{\pi} {\sin{}^{n}\theta}\, \dd \theta = 2\int_{0}^{\pi/2} {\sin{}^{n}\theta}\, \dd \theta
+  \[\int_{0}^{\pi} {\sin{}^{n}\theta}\hspace{0.1em}d\theta = 2\int_{0}^{\pi/2} {\sin{}^{n}\theta}\hspace{0.1em}d\theta
   \] 
   である. 
 \end{exproblem}
 
 \begin{exproblem}{円柱座標による体積計算}{ex:cylindrical-change}
   \[
-    V=\iiint_{E} 1\, \dd x \dd y \dd z,\quad E=\{(x,y,z)\mid x^{2}+y^{2}\le 1,\ 0\le z\le 2\}
+    V=\iiint_{E} 1\hspace{0.1em}dx dy dz,\quad E=\{(x,y,z)\mid x^{2}+y^{2}\le 1,\ 0\le z\le 2\}
   \]
   を求めよ.
   \par\noindent\dotfill\par
@@ -376,9 +376,9 @@ $0\le x\le 1,\ 0\le y\le 1-x$ である.
   \begin{mathpad}
     \begin{align*}
       V
-        &= \int_{0}^{2\pi}\!\left(\int_{0}^{1}\!\left(\int_{0}^{2} 1\cdot r\, \dd z\right)\dd r\right)\dd \theta \\
-        &= \int_{0}^{2\pi}\!\left(\int_{0}^{1} 2r\, \dd r\right)\dd \theta \\
-        &= \int_{0}^{2\pi}\!\left(\biggl[r^{2}\biggr]{}_{\raisebox{-1.1ex}{$r=0$}}^{\raisebox{1.2ex}{$r=1$}}\right)\dd \theta \\
+        &= \int_{0}^{2\pi}\!\left(\int_{0}^{1}\!\left(\int_{0}^{2} 1\cdot r\hspace{0.1em}dz\right)dr\right)d\theta \\
+        &= \int_{0}^{2\pi}\!\left(\int_{0}^{1} 2r\hspace{0.1em}dr\right)d\theta \\
+        &= \int_{0}^{2\pi}\!\left(\Bigl[\textstyle r^{2}\Bigr]{}_{\raisebox{-1.1ex}{$\scriptstyle r=0$}}^{\raisebox{1.2ex}{$\scriptstyle r=1$}}\right)d\theta \\ %chktex 1
         &= 2\pi
     \end{align*}
   \end{mathpad}
@@ -397,7 +397,7 @@ $0\le x\le 1,\ 0\le y\le 1-x$ である.
 \noindent\textbf{ベータ関数の定義}\par
 \begin{mathpad}
   \[
-    B(p,q)=\int_{0}^{1} {(t)}^{p-1}{(1-t)}^{q-1}\, \dd t\quad (p>0,\ q>0)
+    B(p,q)=\int_{0}^{1} t^{p-1}(1-t){}^{q-1}\hspace{0.1em}dt\quad (p>0,\ q>0)
   \]
 \end{mathpad}
 が成り立つ. 対称性 $B(p,q)=B(q,p)$ と, ガンマ関数との関係
@@ -410,27 +410,27 @@ $0\le x\le 1,\ 0\le y\le 1-x$ である.
 
 \begin{exproblem}{半無限帯の拡張積分}{ex:improper-strip}
   \[
-    I=\iint_{D} e^{-(x+y)}\, \dd x \dd y,\quad D=\{(x,y)\mid x\ge 0,\ 0\le y\le 1\}
+    I=\iint_{D} e^{-(x+y)}\hspace{0.1em}dx dy,\quad D=\{(x,y)\mid x\ge 0,\ 0\le y\le 1\}
   \]
   を求めよ.
 \par\noindent\dotfill\par
 \noindent\textbf{【解答】}\par
 有界領域に切り取って
 \[
-  I(R)=\int_{0}^{R}\!\left(\int_{0}^{1} e^{-(x+y)}\, \dd y\right)\dd x
+  I(R)=\int_{0}^{R}\!\left(\int_{0}^{1} e^{-(x+y)}\hspace{0.1em}dy\right)dx
   \quad (R>0)
 \]
 とおく. まず $y$ で積分すると
 \begin{mathpad}
   \[
-    I(R)=\int_{0}^{R}\!\left(\biggl[-e^{-(x+y)}\biggr]{}_{\raisebox{-1.1ex}{$y=0$}}^{\raisebox{1.2ex}{$y=1$}}\right)\dd x
-    =(1-e^{-1})\int_{0}^{R} e^{-x}\, \dd x
+    I(R)=\int_{0}^{R}\!\left(\Bigl[\textstyle -e^{-(x+y)}\Bigr]{}_{\raisebox{-1.1ex}{$\scriptstyle y=0$}}^{\raisebox{1.2ex}{$\scriptstyle y=1$}}\right)dx %chktex 1
+    =(1-e^{-1})\int_{0}^{R} e^{-x}\hspace{0.1em}dx
   \]
 \end{mathpad}
 となる. さらに
 \begin{mathpad}
   \[
-    I(R)=(1-e^{-1})\biggl[-e^{-x}\biggr]{}_{\raisebox{-1.1ex}{$x=0$}}^{\raisebox{1.2ex}{$x=R$}}
+    I(R)=(1-e^{-1})\Bigl[\textstyle -e^{-x}\Bigr]{}_{\raisebox{-1.1ex}{$\scriptstyle x=0$}}^{\raisebox{1.2ex}{$\scriptstyle x=R$}} %chktex 1
     =(1-e^{-1})(1-e^{-R})
   \]
 \end{mathpad}
@@ -443,36 +443,40 @@ $0\le x\le 1,\ 0\le y\le 1-x$ である.
 
 \begin{exproblem}{ガウス積分の二重化}{ex:gauss-double}
   \[
-    I=\int_{0}^{\infty} e^{-{(x)}^{2}}\, \dd x
+    I=\int_{0}^{\infty} e^{-x^{2}}\hspace{0.1em}dx
   \]
   を求めよ.
 \par\noindent\dotfill\par
 \noindent\textbf{【解答】}\par
-まず $I(a)=\int_{0}^{a} e^{-{(x)}^{2}}\, \dd x\ (a>0)$ とおき,
+まず 
 \[
-  I(a){}^{2}=\int_{0}^{a}\!\left(\int_{0}^{a} e^{-\left({(x)}^{2}+{(y)}^{2}\right)}\, \dd y\right)\dd x
+I(a)=\int_{0}^{a} e^{-x^{2}}\hspace{0.1em}dx\ (a>0)
+\] 
+とおき,
+\[
+  I(a){}^{2}=\int_{0}^{a}\!\left(\int_{0}^{a} e^{-\left(x^{2}+y^{2}\right)}\hspace{0.1em}dy\right)dx
 \]
 とする. 第1象限で, 正方形 $0\le x\le a,\ 0\le y\le a$ は
 半径 $a$ の円弧領域を含み, 半径 $\sqrt{2}\,a$ の円弧領域に含まれるので
 \begin{mathpad}
   \[
-    \iint_{x^{2}+y^{2}\le a^{2}} e^{-\left({(x)}^{2}+{(y)}^{2}\right)}\, \dd x \dd y
+    \iint_{x^{2}+y^{2}\le a^{2}} e^{-\left(x^{2}+y^{2}\right)}\hspace{0.1em}dx dy
     \le I(a){}^{2}
-    \le \iint_{x^{2}+y^{2}\le 2{(a)}^{2}} e^{-\left({(x)}^{2}+{(y)}^{2}\right)}\, \dd x \dd y
+    \le \iint_{x^{2}+y^{2}\le 2a^{2}} e^{-\left(x^{2}+y^{2}\right)}\hspace{0.1em}dx dy
   \]
 \end{mathpad}
 が成り立つ（図\ref{fig:gauss-sandwich}）.
 極座標変換により
 \begin{mathpad}
   \begin{align*}
-    \int_{0}^{\pi/2}\!\left(\int_{0}^{a} e^{-{(r)}^{2}} r\, \dd r\right)\dd \theta
-      &= \dfrac{\:\pi\:}{\:\:2\:}\biggl[-\dfrac{\:1\:}{\:\:2\:}e^{-{(r)}^{2}}\biggr]{}_{\raisebox{-1.1ex}{$r=0$}}^{\raisebox{1.2ex}{$r=a$}} \\
-      &= \dfrac{\:\pi\:}{\:\:4\:}\left(1-e^{-{(a)}^{2}}\right)
+    \int_{0}^{\pi/2}\!\left(\int_{0}^{a} e^{-r^{2}} r\hspace{0.1em}dr\right)d\theta
+      &= \dfrac{\:\pi\:}{\:\:2\:}\left[\textstyle -\dfrac{\:1\:}{\:\:2\:}e^{-r^{2}}\right]{}_{\raisebox{-1.1ex}{$\scriptstyle r=0$}}^{\raisebox{1.2ex}{$\scriptstyle r=a$}} \\ %chktex 1
+      &= \dfrac{\:\pi\:}{\:\:4\:}\left(1-e^{-a^{2}}\right)
   \end{align*}
 \end{mathpad}
 を得る. 同様に半径 $\sqrt{2}\,a$ の場合は
 \[
-  \dfrac{\:\pi\:}{\:\:4\:}\left(1-e^{-2{(a)}^{2}}\right)
+  \dfrac{\:\pi\:}{\:\:4\:}\left(1-e^{-2a^{2}}\right)
 \]
 となるので, はさみうちの原理により
 \[
@@ -494,26 +498,26 @@ $0\le x\le 1,\ 0\le y\le 1-x$ である.
 \begin{exproblem}{ベータ関数型積分}{ex:beta-standard}
   次式を証明しなさい.
   \[
-    J=\int_{0}^{1} {(t)}^{m}{(1-t)}^{n}\, \dd t
+    J=\int_{0}^{1} t^{m}(1-t){}^{n}\hspace{0.1em}dt
     =\dfrac{\:m!\,n!\:}{\:\:(m+n+1)!\:}\quad (m,n\ge 0)
   \]
 \par\noindent\dotfill\par
 \noindent\textbf{【解答】}\par
-以下 $I(m,n)=\int_{0}^{1} {(t)}^{m}{(1-t)}^{n}\, \dd t$ とおく.\\
+以下 $I(m,n)=\int_{0}^{1} t^{m}(1-t){}^{n}\hspace{0.1em}dt$ とおく.\\
 部分積分で $m$ を下げ, $I(0,n)$ に帰着させる. 途中で
 \[
-{(1-t)}^{n+1}={(1-t)}^{n}-t{(1-t)}^{n}
+(1-t){}^{n+1}=(1-t){}^{n}-t(1-t){}^{n}
 \] 
 を用いて $I(m-1,n+1)$ を整理する.\\
 
 部分積分の公式
 \[
-  \int f(x)g'(x)\, \dd x = f(x)g(x)-\int f'(x)g(x)\, \dd x
+  \int f(x)g'(x)\hspace{0.1em}dx = f(x)g(x)-\int f'(x)g(x)\hspace{0.1em}dx
 \]
-を $f(x)={(t)}^{m}$, $g'(x)={(1-t)}^{n}$ に適用すると
+を $f(x)=t^{m}$, $g'(x)=(1-t){}^{n}$ に適用すると
 \[
-  I(m,n)=\biggl[-\dfrac{\:{(t)}^{m}{(1-t)}^{n+1}\:}{\:\:n+1\:}\biggr]{}_{\raisebox{-1.1ex}{$t=0$}}^{\raisebox{1.2ex}{$t=1$}}
-  +\dfrac{\:m\:}{\:\:n+1\:}\int_{0}^{1} {(t)}^{m-1}{(1-t)}^{n+1}\, \dd t
+  I(m,n)=\left[\textstyle -\dfrac{\:t^{m}(1-t){}^{n+1}\:}{\:\:n+1\:}\right]{}_{\raisebox{-1.1ex}{$\scriptstyle t=0$}}^{\raisebox{1.2ex}{$\scriptstyle t=1$}} %chktex 1
+  +\dfrac{\:m\:}{\:\:n+1\:}\int_{0}^{1} t^{m-1}(1-t){}^{n+1}\hspace{0.1em}dt
 \]
 となる. 境界項は $t=0,1$ で消えるので
 \[
@@ -521,7 +525,7 @@ $0\le x\le 1,\ 0\le y\le 1-x$ である.
 \]
 を得る. ここで
 \[
-  I(m-1,n+1)=\int_{0}^{1} {(t)}^{m-1}\bigl({(1-t)}^{n}-t{(1-t)}^{n}\bigr)\, \dd t
+  I(m-1,n+1)=\int_{0}^{1} t^{m-1}\bigl((1-t){}^{n}-t(1-t){}^{n}\bigr)\hspace{0.1em}dt
 =I(m-1,n)-I(m,n)
 \]
 より
@@ -534,8 +538,8 @@ $0\le x\le 1,\ 0\le y\le 1-x$ である.
 \]
 である. さらに
 \[
-  I(0,n)=\int_{0}^{1} {(1-t)}^{n}\, \dd t
-  =\biggl[-\dfrac{\:{(1-t)}^{n+1}\:}{\:\:n+1\:}\biggr]{}_{\raisebox{-1.1ex}{$t=0$}}^{\raisebox{1.2ex}{$t=1$}}
+  I(0,n)=\int_{0}^{1} (1-t){}^{n}\hspace{0.1em}dt
+  =\left[\textstyle -\dfrac{\:(1-t){}^{n+1}\:}{\:\:n+1\:}\right]{}_{\raisebox{-1.1ex}{$\scriptstyle t=0$}}^{\raisebox{1.2ex}{$\scriptstyle t=1$}} %chktex 1
   =\dfrac{\:1\:}{\:\:n+1\:}
 \]
 より
@@ -552,7 +556,7 @@ $0\le x\le 1,\ 0\le y\le 1-x$ である.
 
 \begin{exproblem}{単体領域の典型計算}{ex:simplex-beta}
   \[
-    K=\iint_{D} {(x)}^{m}{(y)}^{n}{(1-x-y)}^{l}\, \dd x \dd y,\quad D=\{(x,y)\mid x\ge 0,\ y\ge 0,\ x+y\le 1\}
+    K=\iint_{D} x^{m}y^{n}(1-x-y){}^{l}\hspace{0.1em}dx dy,\quad D=\{(x,y)\mid x\ge 0,\ y\ge 0,\ x+y\le 1\}
   \]
   ただし $l,m,n$ は $0$ 以上の整数とする.
   \par\noindent\dotfill\par
@@ -562,9 +566,9 @@ $0\le x\le 1,\ 0\le y\le 1-x$ である.
 \\
 領域条件より $0\le x\le 1$, $0\le y\le 1-x$ であるから
 \[
-  K=\int_{0}^{1}\!\left(\int_{0}^{1-x} {(x)}^{m}{(y)}^{n}{(1-x-y)}^{l}\, \dd y\right)\dd x
+  K=\int_{0}^{1}\!\left(\int_{0}^{1-x} x^{m}y^{n}(1-x-y){}^{l}\hspace{0.1em}dy\right)dx
 \]
-と書ける. ここで $y=(1-x)t$ とおくと $\dd y=(1-x)\dd t$ であり,
+と書ける. ここで $y=(1-x)t$ とおくと $dy=(1-x)dt$ であり,
 置換後の対応は
 \begin{mathpad}
   \[
@@ -578,39 +582,35 @@ $0\le x\le 1,\ 0\le y\le 1-x$ である.
 である. よって
 \begin{mathpad}
   \[
-    \int_{0}^{1-x} {(y)}^{n}{(1-x-y)}^{l}\, \dd y
-    =\int_{0}^{1} {(t)}^{n}{(1-x)}^{n}{\bigl((1-x)-(1-x)t\bigr)}^{l}(1-x)\, \dd t
+    \int_{0}^{1-x} y^{n}(1-x-y){}^{l}\hspace{0.1em}dy
+    =\int_{0}^{1} \bigl((1-x)t\bigr){}^{n}\bigl((1-x)-(1-x)t\bigr){}^{l}(1-x)\hspace{0.1em}dt
   \]
 \end{mathpad}
 となり,
 \begin{mathpad}
   \[
-    \int_{0}^{1-x} {(y)}^{n}{(1-x-y)}^{l}\, \dd y
-    ={(1-x)}^{n+l+1}\int_{0}^{1} {(t)}^{n}{(1-t)}^{l}\, \dd t
+    \int_{0}^{1-x} y^{n}(1-x-y){}^{l}\hspace{0.1em}dy
+    =(1-x){}^{n+l+1}\int_{0}^{1} t^{n}(1-t){}^{l}\hspace{0.1em}dt
   \]
 \end{mathpad}
 を得る. 例題1.11より
 \[
-  \int_{0}^{1} {(t)}^{n}{(1-t)}^{l}\, \dd t=\dfrac{\:n!\,l!\:}{\:\:(n+l+1)!\:}
+  \int_{0}^{1} t^{n}(1-t){}^{l}\hspace{0.1em}dt=\dfrac{\:n!\,l!\:}{\:\:(n+l+1)!\:}
 \]
 なので
 \[
-  K=\dfrac{\:n!\,l!\:}{\:\:(n+l+1)!\:}\int_{0}^{1} {(x)}^{m}{(1-x)}^{n+l+1}\, \dd x
+  K=\dfrac{\:n!\,l!\:}{\:\:(n+l+1)!\:}\int_{0}^{1} x^{m}(1-x){}^{n+l+1}\hspace{0.1em}dx
 \]
 となる. 再び例題1.11を用いると
 \[
-  \int_{0}^{1} {(x)}^{m}{(1-x)}^{n+l+1}\, \dd x
+  \int_{0}^{1} x^{m}(1-x){}^{n+l+1}\hspace{0.1em}dx
   =\dfrac{\:m!\,(n+l+1)!\:}{\:\:(m+n+l+2)!\:}
 \]
 であるから
 \[
   K=\dfrac{\:m!\,n!\,l!\:}{\:\:(m+n+l+2)!\:}
 \]
-を得る.
-したがって, 
-\[
-  K=\dfrac{\:m!\,n!\,l!\:}{\:\:(m+n+l+2)!\:}
-\]
+を得る. 
 \end{exproblem}
 
 \begin{sidebox}{ヤコビアンのまとめ}
