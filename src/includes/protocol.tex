@@ -15,6 +15,7 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{here}
+\usepackage{geometry}
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{subfiles}
@@ -24,6 +25,7 @@
 \usepackage{url}
 \usepackage{cite}
 \usepackage{emotion}
+\usepackage[normalem]{ulem}
 \usepackage{amsmath}
 \usepackage[hidelinks]{hyperref}
 
@@ -96,6 +98,15 @@
     colbacktitle=#1!12,
     coltitle=#1!80!black,
   },
+  tbSideBreak/.style n args={2}{%
+    tbBaseBreak={#2},% ← breakable
+    frame hidden,
+    colback=#1!3,
+    borderline west={2.2pt}{0pt}{#1!80!black},
+    title filled,
+    colbacktitle=#1!12,
+    coltitle=#1!80!black,
+  },
 }
 
 % --- Guard for multiple loading ---
@@ -109,7 +120,7 @@
 
 % --- Environments ---
 \NewDocumentEnvironment{sidebox}{ O{TBgray} m }
-  {\begin{tcolorbox}[tbSide={#1}{#2}]}
+  {\begin{tcolorbox}[tbSideBreak={#1}{#2}]}
   {\end{tcolorbox}}
 
 \newtcbtheorem[number within=section]{theorem}{定理}

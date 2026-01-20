@@ -1,0 +1,974 @@
+\documentclass[../main.tex]{subfiles}
+
+% =============================================
+% 【自動設定】単体ビルド時の章番号補正
+% ファイル名 (chXX) の数字を読み取り, 自動でセクション番号を調整します
+% main.tex からビルドする時は無視されます
+% =============================================
+\directlua{
+  local s, e, num = string.find(tex.jobname, "ch(" .. string.char(37) .. "d+)") %chktex 36 %chktex 18 %chktex 12 %chktex 26
+  if num then
+    tex.print(string.char(92) .. "setcounter{section}{" .. (tonumber(num) - 1) .. "}")%chktex 36 %chktex 26 %chktex 18 %chktex 12 %chktex 8
+  end
+}
+
+\begin{document}
+
+\section{常微分方程式}
+
+\subsection{変数分離型}
+変数分離型とは, 未知関数の微分方程式が
+\[
+  \dfrac{\:dy\:}{\:dx\:} = f(x) g(y)
+\]
+の形に書けるものである. $f(x)$ は $x$ のみ, $g(y)$ は $y$ のみの関数である.
+このとき $g(y)\neq 0$ を仮定して両辺を整理して
+\[
+  \dfrac{\:1\:}{\:g(y)\:}dy = f(x)dx
+\]
+とし, 両辺を不定積分することで解を求める. すなわち
+\[
+  \int \dfrac{\:1\:}{\:g(y)\:}dy = \int f(x)dx + \mathrm{const}
+\]
+となる. ここから $y$ を $x$ の式として整理したものが一般解であり, 初期条件を満たすように積分定数を定めたものが特殊解である. さらに, 一般解の族に含まれないが方程式を満たす解が存在する場合, それを特異解と呼び区別する. また, $g(y)=0$ を満たす定数解が存在する場合, それらも解に含まれる. 
+
+\begin{exproblem}{変数分離型の例題}{ex:separable-exercises}
+  次の微分方程式を解け.
+  \begin{enumerate}[label=(\arabic*),leftmargin=1.4em] %chktex 36
+    \begin{mathpad}
+    \item ${(1+x)}\dfrac{\:dy\:}{\:dx\:}=1+y,\quad y(0)=0$
+    \end{mathpad}\begin{mathpad}
+    \item $y^{3}+x^{6}\dfrac{\:dy\:}{\:dx\:}=0$
+    \end{mathpad}\begin{mathpad}
+    \item $\dfrac{\:dy\:}{\:dx\:}=\dfrac{\:1\:}{\:\log(3+y+2)+1\:}-3$
+    \end{mathpad}\begin{mathpad}
+    \item ${(1+x^{2})}\dfrac{\:dy\:}{\:dx\:}+{(1+y^{2})}=0,\quad x=1\ \text{のとき}\ y=\sqrt{3}$
+    \end{mathpad}
+  \end{enumerate}
+\par\noindent\dotfill\par
+\noindent\textbf{【解答】}\par
+  \begin{pstep}{1}
+    $1+x\neq 0$ で
+    \begin{mathpad}
+      \[
+        \dfrac{\:1\:}{\:1+y\:}\hspace{0.1em}\:dy\: = \dfrac{\:1\:}{\:1+x\:}\hspace{0.1em}\:dx\:
+      \]
+    \end{mathpad}
+    と分離できる. 積分して
+    \begin{mathpad}
+      \[
+        \ln \abs{1+y} = \ln \abs{1+x} + C
+      \]
+    \end{mathpad}\begin{mathpad}
+      \[
+        1+y = C(1+x)
+      \]
+    \end{mathpad}
+    を得る. 初期条件 $y(0)=0$ から $C=1$ となり
+    \begin{mathpad}
+      \[
+        y = x
+      \]
+    \end{mathpad}
+    である. なお $g(y)=1+y$ とおくと $g(y)=0$ を満たす $y=-1$ も定数解である.
+  \end{pstep}
+  \begin{pstep}{2}
+    $x\neq 0$ で
+    \begin{mathpad}
+      \[
+        \dfrac{\:1\:}{\:y^{3}\:}\hspace{0.1em}\:dy\:=-\dfrac{\:1\:}{\:x^{6}\:}\hspace{0.1em}\:dx\:
+      \]
+    \end{mathpad}\begin{mathpad}
+      \[
+        -\dfrac{\:1\:}{\:2^{2}\:}=\dfrac{\:1\:}{\:5^{5}\:}+C
+      \]
+    \end{mathpad}
+    となる. したがって
+    \begin{mathpad}
+      \[
+        \dfrac{\:1\:}{\:y^{2}\:}=-\dfrac{\:2\:}{\:5^{5}\:}+C
+      \]
+    \end{mathpad}
+    が一般解である. また $y=0$ は定数解である.
+  \end{pstep}
+  \begin{pstep}{3}
+    $u=3+y+2$ とおくと $\dfrac{\:du\:}{\:dx\:}=3+\dfrac{\:dy\:}{\:dx\:}$ であるから
+    \begin{mathpad}
+      \[
+        \dfrac{\:du\:}{\:dx\:}=\dfrac{\:1\:}{\:\log u+1\:}
+      \]
+    \end{mathpad}\begin{mathpad}
+      \[
+        (\log u+1)\hspace{0.1em}\:du\:=\:dx\:
+      \]
+    \end{mathpad}
+    を積分して
+    \begin{mathpad}
+      \[
+        u\log u=x+C
+      \]
+    \end{mathpad}\begin{mathpad}
+      \[
+        (3+y+2)\log(3+y+2)=x+C
+      \]
+    \end{mathpad}
+    が一般解である.
+  \end{pstep}
+  \begin{pstep}{4}
+    \begin{mathpad}
+      \[
+        \dfrac{\:1\:}{\:1+y^{2}\:}\hspace{0.1em}\:dy\:=-\dfrac{\:1\:}{\:1+x^{2}\:}\hspace{0.1em}\:dx\:
+      \]
+    \end{mathpad}\begin{mathpad}
+      \[
+        \arctan y=-\arctan x+C
+      \]
+    \end{mathpad}
+    となる. 初期条件 $x=1,\ y=\sqrt{3}$ より
+    \begin{mathpad}
+      \[
+        C=\dfrac{\:7\pi\:}{\:12\:}
+      \]
+    \end{mathpad}\begin{mathpad}
+      \[
+        \arctan y+\arctan x=\dfrac{\:7\pi\:}{\:12\:}
+      \]
+    \end{mathpad}
+    が特殊解である.
+  \end{pstep}
+\end{exproblem}
+
+\subsection{一階線形微分方程式の解法}
+一階線形微分方程式
+\[
+  \dfrac{\:dy\:}{\:dx\:} + p(x) y = q(x)
+\]
+を考える. $q(x)=0$ のとき同次方程式, $q(x)\neq 0$ のとき非同次方程式である.
+
+\begin{sidebox}[TBblue]{一階線形微分方程式の解法}
+  \begin{pstep}{解法1}
+    ここでは特殊解 $\alpha(x)$ が既に分かっている場合を扱う. $y$ を任意の解, $\alpha(x)$ を特殊解として
+    \begin{mathpad}
+      \[
+        \dfrac{\:dy\:}{\:dx\:} + p(x) y = q(x)
+      \]
+    \end{mathpad}
+    \begin{mathpad}
+      \[
+        \dfrac{\:d\alpha\:}{\:dx\:} + p(x)\alpha = q(x)
+      \]
+    \end{mathpad}
+    を引くと
+    \begin{mathpad}
+      \[
+        \dfrac{\:d(y-\alpha)\:}{\:dx\:} + p(x)(y-\alpha)=0
+      \]
+    \end{mathpad}
+    となる. $Y=y-\alpha$ とおくと
+    \begin{mathpad}
+      \[
+        \dfrac{\:dY\:}{\:dx\:} + p(x)m=0
+      \]
+    \end{mathpad}
+    であり, 変数分離によって
+    \begin{mathpad}
+      \[
+        Y=C e^{-\int p(x)dx}
+      \]
+    \end{mathpad}
+    を得る. したがって一般解は
+    \begin{mathpad}
+      \[
+        y=\mathnestunderline[blue]{非同次方程式の一般解}{%
+          \mathunderline[solid][blue]{C e^{-\int p(x)\dd x}}[同次方程式の一般解]
+          +\mathunderline[solid][blue]{\alpha(x)}[特殊解]
+        }
+      \]
+    \end{mathpad}
+    となる. この形は, 同次方程式の一般解に特殊解を加えるという標準的な構造を表している.
+  \end{pstep}
+  \tcbbreak{}
+  \begin{pstep}{解法2}
+    \begin{pstep}[box]{Step1}
+      同次方程式を解いて
+      \begin{mathpad}
+        \[
+        \dfrac{\:dy\:}{\:dx\:}+p(x)y=0
+        \]
+      \end{mathpad}
+      \begin{mathpad}
+        \[
+          y=C e^{-\int p(x)\dd x}
+        \]
+      \end{mathpad}
+      を得る.
+    \end{pstep}
+    \begin{pstep}[box]{Step2}
+      定数 $C$ を関数 $C(x)$ に変えて非同次方程式に代入する.
+      \begin{mathpad}
+        \[
+          y=C(x)e^{-\int p(x)\dd x}
+        \]
+      \end{mathpad}
+      \begin{mathpad}
+        \[
+          \dfrac{\:d\:}{\:dx\:}\!\left(C(x)e^{-\int p(x)\dd x}\right)+p(x)C(x)e^{-\int p(x)\dd x}=q(x)
+        \]
+      \end{mathpad}
+      ここで
+      \begin{mathpad}
+        \[
+          C'(x)e^{-\int p(x)\dd x}-p(x)C(x)e^{-\int p(x)\dd x}+p(x)C(x)e^{-\int p(x)\dd x}=q(x)
+        \]
+      \end{mathpad}
+      \begin{mathpad}
+        \[
+          C'(x)e^{-\int p(x)\dd x}=q(x)
+        \]
+      \end{mathpad}
+      \begin{mathpad}
+        \[
+          C'(x)=\mathunderline[wave][red]{q(x)e^{\int p(x)\dd x}}[\ensuremath{x}だけの関数]
+        \]
+      \end{mathpad}
+      となる. よって
+      \begin{mathpad}
+        \[
+          C(x)=\int q(x)e^{\int p(x)\dd x}\dd x + C
+        \]
+      \end{mathpad}
+      \begin{mathpad}
+        \[
+          y=e^{-\int p(x)\dd x}\Biggl\{\int q(x)e^{\int p(x)\dd x}\dd x + C \Biggr\}
+        \]
+      \end{mathpad}
+      を得る. これが非同次方程式の一般解である.
+    \end{pstep}
+  \end{pstep}
+
+  \begin{pstep}{解法3}
+    積分因子を用いる. 方程式
+    \begin{mathpad}
+      \[
+        \dfrac{\:dy\:}{\:dx\:}+p(x)y=q(x)
+      \]
+    \end{mathpad}
+    の両辺に
+    \begin{mathpad}
+      \[
+        \mathunderline[wave][red]{e^{\int p(x)\dd x}}[積分因子]
+      \]
+    \end{mathpad}
+    をかけると
+    \begin{mathpad}
+      \[
+        e^{\int p(x)\dd x}\dfrac{\:dy\:}{\:dx\:}+e^{\int p(x)\dd x}p(x)y
+        =e^{\int p(x)\dd x}q(x)
+      \]
+    \end{mathpad}
+    となる. 左辺は積の微分で
+    \begin{mathpad}
+      \[
+        \dfrac{\:d\:}{\:dx\:}\!\left(e^{\int p(x)\dd x}y\right)
+        =e^{\int p(x)\dd x}q(x)
+      \]
+    \end{mathpad}
+    であるから, 両辺を積分して
+    \begin{mathpad}
+      \[
+        e^{\int p(x)\dd x}y=\int q(x)e^{\int p(x)\dd x}\dd x + C
+      \]
+    \end{mathpad}
+    を得る. よって一般解は
+    \begin{mathpad}
+      \[
+        y=e^{-\int p(x)\dd x}\Biggl\{\int q(x)e^{\int p(x)\dd x}\dd x + C \Biggr\}
+      \]
+    \end{mathpad}
+    となる.
+  \end{pstep}
+\end{sidebox}
+
+\begin{exproblem}{一階線形微分方程式の例題}{ex:first-linear-methods}
+  次の微分方程式を解け（一般解のみ）. (1) は解法1, (2) は解法2, (3), (4) は解法3に対応する.
+  \begin{enumerate}[label=(\arabic*),leftmargin=1.4em] %chktex 36
+    \begin{mathpad}
+    \item $\dfrac{\:dy\:}{\:dx\:}+2y=e^{-x}$
+    \end{mathpad}\begin{mathpad}
+    \item $\dfrac{\:dy\:}{\:dx\:}+\dfrac{\:2\:}{\:x\:}y=x^{2}\quad (x>0)$
+    \end{mathpad}\begin{mathpad}
+    \item $\dfrac{\:dy\:}{\:dx\:}+(1+x)y=x+1$
+    \end{mathpad}\begin{mathpad}
+    \item $\dfrac{\:dy\:}{\:dx\:}+y=e^{x}$
+    \end{mathpad}
+  \end{enumerate}
+\par\noindent\dotfill\par
+\noindent\textbf{【解答】}\par
+  \begin{pstep}{1}
+    同次解 $y=C e^{-2x}$ を用いて
+    \begin{mathpad}
+      \[
+        y=C e^{-2x}+\alpha(x),\quad \dfrac{\:d\alpha\:}{\:dx\:}+2\alpha=e^{-x}
+      \]
+    \end{mathpad}
+    を満たす特殊解を求めると
+    \begin{mathpad}
+      \[
+        \alpha(x)=-e^{-x}
+      \]
+    \end{mathpad}
+    であるから一般解は
+    \begin{mathpad}
+      \[
+        y=C e^{-2x}-e^{-x}
+      \]
+    \end{mathpad}
+    となる.
+  \end{pstep}
+  \begin{pstep}{2}
+    同次解 $y=C x^{-2}$ とおき, 定数を $C(x)$ に変える.
+    \begin{mathpad}
+      \[
+        y=C(x)x^{-2}
+      \]
+    \end{mathpad}
+    であり
+    \begin{mathpad}
+      \[
+        C'(x)x^{-2}=x^{2}
+      \]
+    \end{mathpad}
+    となる. よって
+    \begin{mathpad}
+      \[
+        C(x)=\dfrac{\:1\:}{\:5\:}x^{5}+C
+      \]
+    \end{mathpad}
+    であるから一般解は
+    \begin{mathpad}
+      \[
+        y=\dfrac{\:1\:}{\:5\:}x^{3}+C x^{-2}
+      \]
+    \end{mathpad}
+    となる.
+  \end{pstep}
+  \begin{pstep}{3}
+    積分因子は
+    \begin{mathpad}
+      \[
+        e^{\int (1+x)\dd x}=e^{x+\dfrac{\:1\:}{\:2\:}x^{2}}
+      \]
+    \end{mathpad}
+    であるから
+    \begin{mathpad}
+      \[
+        \dfrac{\:d\:}{\:dx\:}\!\left(e^{x+\dfrac{\:1\:}{\:2\:}x^{2}}y\right)=(x+1)e^{x+\dfrac{\:1\:}{\:2\:}x^{2}}
+      \]
+    \end{mathpad}
+    となる. ここで
+    \begin{mathpad}
+      \[
+        t=x+\dfrac{\:1\:}{\:2\:}x^{2}\quad \Rightarrow \quad \dfrac{\:dt\:}{\:dx\:}=x+1
+      \]
+      \[
+        (x+1)e^{x+\dfrac{\:1\:}{\:2\:}x^{2}}\dd x=e^{t}\dd t
+      \]
+    \end{mathpad}
+    であるから, 両辺を積分して
+    \begin{mathpad}
+      \[
+        e^{x+\dfrac{\:1\:}{\:2\:}x^{2}}y=e^{x+\dfrac{\:1\:}{\:2\:}x^{2}}+C
+      \]
+    \end{mathpad}
+    を得る. よって一般解は
+    \begin{mathpad}
+      \[
+        y=1+Ce^{-x-\dfrac{\:1\:}{\:2\:}x^{2}}
+      \]
+    \end{mathpad}
+    となる.
+  \end{pstep}
+  \begin{pstep}{4}
+    (3) と同様に積分因子 $e^{x}$ を用いる.
+    \begin{mathpad}
+      \[
+        \dfrac{\:d\:}{\:dx\:}\!\left(e^{x}y\right)=e^{2x}
+      \]
+    \end{mathpad}
+    であるから
+    \begin{mathpad}
+      \[
+        e^{x}y=\dfrac{\:1\:}{\:2\:}e^{2x}+C
+      \]
+    \end{mathpad}
+    を得る. したがって一般解は
+    \begin{mathpad}
+      \[
+        y=\dfrac{\:1\:}{\:2\:}e^{x}+Ce^{-x}
+      \]
+    \end{mathpad}
+    となる.
+  \end{pstep}
+\end{exproblem}
+
+\subsection{二階線形微分方程式}
+\noindent\textbf{二階線形微分方程式}\par
+  \begin{mathpad}
+    \[
+      y''+a(x)y'+b(x)y=f(x)
+    \]
+  \end{mathpad}
+の一般解を考える. 
+
+\begin{sidebox}[TBblue]{二階線形微分方程式の解法}
+
+
+  \begin{pstep}{解法1}
+    特殊解 $\alpha(x)$ が既知の場合を考える. まず同次方程式 $y''+a(x)y'+b(x)y=0$ を解く. 係数が定数なら特性方程式を解いて $y_{1},y_{2}$ を求める. $y$ を任意の解とすると
+    \begin{mathpad}
+      \[
+        y''+a(x)y'+b(x)y=f(x)
+      \]
+      \[
+        \alpha''+a(x)\alpha'+b(x)\alpha=f(x)
+      \]
+    \end{mathpad}
+    であるから, 差を取って
+    \begin{mathpad}
+      \[
+        (y-\alpha)''+a(x)(y-\alpha)'+b(x)(y-\alpha)=0
+      \]
+    \end{mathpad}
+    を得る. $Y=y-\alpha$ とおくと
+    \begin{mathpad}
+      \[
+        Y''+a(x)Y'+b(x)Y=0\quad (\text{同次方程式})
+      \]
+    \end{mathpad}
+    であり, 一次独立な解 $y_{1},y_{2}$ を用いて
+    \begin{mathpad}
+      \[
+        Y=C_{1}y_{1}+C_{2}y_{2}
+      \]
+    \end{mathpad}
+    となる. よって
+    \begin{mathpad}
+      \[
+        y=C_{1}y_{1}+C_{2}y_{2}+\alpha(x)
+      \]
+    \end{mathpad}
+    が一般解である. 特殊解を一般解に加える形になる.
+  \end{pstep}
+
+  \begin{pstep}{解法2}
+    \begin{pstep}[box]{Step1}
+      まず同次方程式
+      \begin{mathpad}
+        \[
+          y''+a(x)y'+b(x)y=0
+        \]
+      \end{mathpad}
+      を解き, 一次独立な解 $y_{1},y_{2}$ を得たとする. 係数が定数なら特性方程式を解いて $y_{1},y_{2}$ を求める. ここで
+      \begin{mathpad}
+        \[
+          L[y]=y''+a(x)y'+b(x)y
+        \]
+      \end{mathpad}
+      とおけば $L$ は微分と加法・定数倍からできているため
+      \begin{mathpad}
+        \[
+          \begin{aligned}
+            L[C_{1}y_{1}+C_{2}y_{2}]
+            &=(C_{1}y_{1}+C_{2}y_{2})''+a(x)(C_{1}y_{1}+C_{2}y_{2})'+b(x)(C_{1}y_{1}+C_{2}y_{2}) \\
+            &=C_{1}(y_{1}''+a(x)y_{1}'+b(x)y_{1})+C_{2}(y_{2}''+a(x)y_{2}'+b(x)y_{2})
+          \end{aligned}
+        \]
+      \end{mathpad}
+      となる. よって $L[y_{1}]=L[y_{2}]=0$ から
+      \[
+        L[C_{1}y_{1}+C_{2}y_{2}]=0
+      \]
+      が成り立ち, どんな定数 $C_{1},C_{2}$ に対しても
+      \begin{mathpad}
+        \[
+          y=C_{1}y_{1}+C_{2}y_{2}
+        \]
+      \end{mathpad}
+      は同次方程式の解である. 逆に, 初期値
+      \begin{mathpad}
+        \[
+          y(x_{0})=A,\quad y'(x_{0})=B
+        \]
+      \end{mathpad}
+      を満たす解を作りたいとき, $x=x_{0}$ を代入すると
+      \begin{mathpad}
+        \[
+          \begin{pmatrix}
+            y_{1}(x_{0}) & y_{2}(x_{0}) \\
+            y_{1}'(x_{0}) & y_{2}'(x_{0})
+          \end{pmatrix}
+          \begin{pmatrix}
+            C_{1} \\
+            C_{2}
+          \end{pmatrix}
+          =
+          \begin{pmatrix}
+            A \\
+            B
+          \end{pmatrix}
+        \]
+      \end{mathpad}
+      となる. ここで行列の行列式
+      \begin{mathpad}
+        \[
+          W(y_{1},y_{2})=
+          \begin{vmatrix}
+            y_{1} & y_{2} \\
+            y_{1}' & y_{2}'
+          \end{vmatrix}
+          \neq 0
+        \]
+      \end{mathpad}
+      が必要であり, そのとき任意の初期値 $(A,B)$ に対して一意の $C_{1},C_{2}$ が定まる. よって一般解は $y=C_{1}y_{1}+C_{2}y_{2}$ と書ける.
+    \end{pstep}
+    \begin{pstep}[box]{Step2}
+      $C_{1},C_{2}$ を関数に変えて
+      \begin{mathpad}
+        \[
+          y=C_{1}(x)y_{1}+C_{2}(x)y_{2}
+        \]
+      \end{mathpad}
+      とおき, 付随条件
+      \begin{mathpad}
+        \[
+          C_{1}'(x)y_{1}+C_{2}'(x)y_{2}=0
+        \]
+      \end{mathpad}
+      を課す. このとき
+      \begin{mathpad}
+        \[
+          y'=C_{1}y_{1}'+C_{2}y_{2}'
+        \]
+        \end{mathpad}\begin{mathpad}
+        \[
+          y''=C_{1}y_{1}''+C_{2}y_{2}''+C_{1}'y_{1}'+C_{2}'y_{2}'
+        \]
+      \end{mathpad}
+      となるので, 元の方程式に代入して
+      \begin{mathpad}
+        \[
+          C_{1}'(x)y_{1}'+C_{2}'(x)y_{2}'=f(x)
+        \]
+      \end{mathpad}
+      を得る. よって
+      \begin{mathpad}
+        \[
+          \begin{cases}
+            C_{1}'(x)y_{1}+C_{2}'(x)y_{2}=0 \\
+            C_{1}'(x)y_{1}'+C_{2}'(x)y_{2}'=f(x)
+          \end{cases}
+        \]
+      \end{mathpad}
+      である. すなわち
+      \begin{mathpad}
+        \[
+          \begin{pmatrix}
+            y_{1} & y_{2} \\
+            y_{1}' & y_{2}'
+          \end{pmatrix}
+          \begin{pmatrix}
+            C_{1}'(x) \\
+            C_{2}'(x)
+          \end{pmatrix}
+          =
+          \begin{pmatrix}
+            0 \\
+            f(x)
+          \end{pmatrix}
+        \]
+      \end{mathpad}
+      である. ロンスキアン
+      \begin{mathpad}
+        \[
+          W(y_{1},y_{2})=
+          \begin{vmatrix}
+            y_{1} & y_{2} \\
+            y_{1}' & y_{2}'
+          \end{vmatrix}
+        \]
+      \end{mathpad}
+      を用いると
+      \begin{mathpad}
+        \[
+          C_{1}'(x)=-\dfrac{\:y_{2}f(x)\:}{\:W(y_{1},y_{2})\:},\quad
+          C_{2}'(x)=\dfrac{\:y_{1}f(x)\:}{\:W(y_{1},y_{2})\:}
+        \]
+      \end{mathpad}
+      となる. したがって
+      \begin{mathpad}
+        \[
+          C_{1}(x)=-\int \dfrac{\:y_{2}f(x)\:}{\:W(y_{1},y_{2})\:}\dd x,\quad
+          C_{2}(x)=\int \dfrac{\:y_{1}f(x)\:}{\:W(y_{1},y_{2})\:}\dd x
+        \]
+      \end{mathpad}
+      であり, 特殊解は
+      \begin{mathpad}
+        \[
+          \alpha(x)=-y_{1}\int \dfrac{\:y_{2}f(x)\:}{\:W(y_{1},y_{2})\:}\dd x
+          +y_{2}\int \dfrac{\:y_{1}f(x)\:}{\:W(y_{1},y_{2})\:}\dd x
+        \]
+      \end{mathpad}
+      となる.
+    \end{pstep}
+  \end{pstep}
+\end{sidebox}
+
+\begin{sidebox}[TBgray]{特性方程式の妥当性}
+  係数が定数の同次方程式 $y''+ay'+by=0$ では, $y=e^{rx}$ と仮定すると
+  \[
+    (r^{2}+ar+b)e^{rx}=0
+  \]
+  となる. $e^{rx}\neq 0$ であるから $r^{2}+ar+b=0$ を解けばよい. 実根が 2 つなら $e^{r_{1}x},e^{r_{2}x}$, 重解なら $e^{rx},x e^{rx}$ が解となり, これらの線形結合が同次方程式の解を与える.
+\end{sidebox}
+
+\begin{exproblem}{二階線形微分方程式の例題}{ex:second-linear-vop}
+  次の微分方程式を解け（一般解のみ）.
+  \begin{enumerate}[label=(\arabic*),leftmargin=1.4em] %chktex 36
+    \begin{mathpad}
+    \item $y''-y=e^{x}$
+    \end{mathpad}\begin{mathpad}
+    \item $y''+2y'+y=x$
+    \end{mathpad}
+    \begin{mathpad}
+    \item $y''-3y'+2y=2x^{2}$
+    \end{mathpad}
+  \end{enumerate}
+\par\noindent\dotfill\par
+\noindent\textbf{【解答】}\par
+  \begin{pstep}{1}
+    同次方程式 $y''-y=0$ は係数が定数なので特性方程式
+    \[
+      r^{2}-1=0
+    \]
+    を解く. よって
+    \begin{mathpad}
+      \[
+        y_{1}=e^{x},\quad y_{2}=e^{-x}
+      \]
+    \end{mathpad}
+    である. よって
+    \begin{mathpad}
+      \[
+        W(y_{1},y_{2})=
+        \begin{vmatrix}
+          e^{x} & e^{-x} \\
+          e^{x} & -e^{-x}
+        \end{vmatrix}
+        =-2
+      \]
+    \end{mathpad}
+    となる. 定数変化法より
+    \begin{mathpad}
+      \[
+        C_{1}'(x)=-\dfrac{y_{2}f(x)}{W(y_{1},y_{2})}
+        =-\dfrac{e^{-x}\cdot e^{x}}{-2}=\dfrac{\:1\:}{\:2\:}
+      \]
+      \end{mathpad}\begin{mathpad}
+      \[
+        C_{2}'(x)=\dfrac{y_{1}f(x)}{W(y_{1},y_{2})}
+        =\dfrac{e^{x}\cdot e^{x}}{-2}=-\dfrac{\:1\:}{\:2\:}e^{2x}
+      \]
+    \end{mathpad}
+    であるから
+    \begin{mathpad}
+      \[
+        C_{1}(x)=\dfrac{\:1\:}{\:2\:}x,\quad
+        C_{2}(x)=-\dfrac{\:1\:}{\:4\:}e^{2x}
+      \]
+    \end{mathpad}
+    を得る. 特殊解は
+    \begin{mathpad}
+      \[
+        \alpha(x)=C_{1}(x)y_{1}+C_{2}(x)y_{2}
+        =\dfrac{\:1\:}{\:2\:}x e^{x}-\dfrac{\:1\:}{\:4\:}e^{x}
+      \]
+    \end{mathpad}
+    となる. よって一般解は
+    \begin{mathpad}
+      \[
+        y=C_{1}e^{x}+C_{2}e^{-x}+\dfrac{\:1\:}{\:2\:}x e^{x}-\dfrac{\:1\:}{\:4\:}e^{x}
+      \]
+    \end{mathpad}
+    である. 定数項は同次解に吸収できるので
+    \begin{mathpad}
+      \[
+        y=C_{1}e^{x}+C_{2}e^{-x}+\dfrac{\:1\:}{\:2\:}x e^{x}
+      \]
+    \end{mathpad}
+    としてよい. ここで $C_{1},C_{2}$ は同次方程式の任意定数である.
+  \end{pstep}
+  \begin{pstep}{2}
+    同次方程式 $y''+2y'+y=0$ は特性方程式
+    \[
+      r^{2}+2r+1=0
+    \]
+    を解くと重解 $r=-1$ を持つので
+    \begin{mathpad}
+      \[
+        y_{1}=e^{-x},\quad y_{2}=x e^{-x}
+      \]
+    \end{mathpad}
+    である. よって
+    \begin{mathpad}
+      \[
+        W(y_{1},y_{2})=
+        \begin{vmatrix}
+          e^{-x} & x e^{-x} \\
+          -e^{-x} & (1-x)e^{-x}
+        \end{vmatrix}
+        =e^{-2x}
+      \]
+    \end{mathpad}
+    となる. 定数変化法より
+    \begin{mathpad}
+      \[
+        C_{1}'(x)=-\dfrac{y_{2}f(x)}{W(y_{1},y_{2})}
+        =-\dfrac{x e^{-x}\cdot x}{e^{-2x}}=-x^{2}e^{x}
+      \]
+      \end{mathpad}\begin{mathpad}
+      \[
+        C_{2}'(x)=\dfrac{y_{1}f(x)}{W(y_{1},y_{2})}
+        =\dfrac{e^{-x}\cdot x}{e^{-2x}}=x e^{x}
+      \]
+    \end{mathpad}
+    である. 積分して
+    \begin{mathpad}
+      \[
+        C_{1}(x)=\int -x^{2}e^{x}\,\dd x=-(x^{2}-2x+2)e^{x}
+      \]
+      \end{mathpad}\begin{mathpad}
+      \[
+        C_{2}(x)=\int x e^{x}\,\dd x=(x-1)e^{x}
+      \]
+    \end{mathpad}
+    を得る. 特殊解は
+    \begin{mathpad}
+      \[
+        \alpha(x)=C_{1}(x)y_{1}+C_{2}(x)y_{2}
+        =x-2
+      \]
+    \end{mathpad}
+    となる. よって一般解は
+    \begin{mathpad}
+      \[
+        y=C_{1}e^{-x}+C_{2}x e^{-x}+x-2
+      \]
+    \end{mathpad}
+    である. ここで $C_{1},C_{2}$ は同次方程式の任意定数である.
+  \end{pstep}
+  \begin{pstep}{3}
+    同次方程式 $y''-3y'+2y=0$ は特性方程式
+    \[
+      r^{2}-3r+2=0
+    \]
+    を解いて
+    \begin{mathpad}
+      \[
+        y_{1}=e^{x},\quad y_{2}=e^{2x}
+      \]
+    \end{mathpad}
+    である. よって
+    \begin{mathpad}
+      \[
+        W(y_{1},y_{2})=
+        \begin{vmatrix}
+          e^{x} & e^{2x} \\
+          e^{x} & 2e^{2x}
+        \end{vmatrix}
+        =e^{3x}
+      \]
+    \end{mathpad}
+    となる. 定数変化法より
+    \begin{mathpad}
+      \[
+        C_{1}'(x)=-\dfrac{y_{2}f(x)}{W(y_{1},y_{2})}
+        =-\dfrac{e^{2x}\cdot 2x^{2}}{e^{3x}}=-2x^{2}e^{-x}
+      \]
+      \end{mathpad}\begin{mathpad}
+      \[
+        C_{2}'(x)=\dfrac{y_{1}f(x)}{W(y_{1},y_{2})}
+        =\dfrac{e^{x}\cdot 2x^{2}}{e^{3x}}=2x^{2}e^{-2x}
+      \]
+    \end{mathpad}
+    である. 積分して
+    \begin{mathpad}
+      \[
+        C_{1}(x)=\int -2x^{2}e^{-x}\,\dd x=2(x^{2}+2x+2)e^{-x}
+      \]
+      \end{mathpad}\begin{mathpad}
+      \[
+        C_{2}(x)=\int 2x^{2}e^{-2x}\,\dd x=-\left(x^{2}+x+\dfrac{\:1\:}{\:2\:}\right)e^{-2x}
+      \]
+    \end{mathpad}
+    を得る. 特殊解は
+    \begin{mathpad}
+      \[
+        \alpha(x)=C_{1}(x)y_{1}+C_{2}(x)y_{2}
+        =x^{2}+3x+\dfrac{\:3\:}{\:2\:}
+      \]
+    \end{mathpad}
+    となる. よって一般解は
+    \begin{mathpad}
+      \[
+        y=C_{1}e^{x}+C_{2}e^{2x}+x^{2}+3x+\dfrac{\:3\:}{\:2\:}
+      \]
+    \end{mathpad}
+    である. ここで $C_{1},C_{2}$ は同次方程式の任意定数である.
+  \end{pstep}
+\end{exproblem}
+
+\subsection{連立常微分方程式の初期値問題}
+\begin{sidebox}[TBblue]{連立常微分方程式の初期値問題}
+  関数 $x(t),y(t)$ の満たす連立常微分方程式
+  \[
+    \begin{cases}
+      \dfrac{\:dx\:}{\:dt\:}=a x(t)+b y(t) \\
+      \dfrac{\:dy\:}{\:dt\:}=c x(t)+d y(t)
+    \end{cases}
+  \]
+  と初期条件
+  \[
+    x(0)=x_{0},\quad y(0)=y_{0}
+  \]
+  により与えられる一般解を考える. 
+  ここで $a,b,c,d$ は定数である. ベクトル
+  \[
+    \bm{u}(t)=\begin{pmatrix}x(t)\\y(t)\end{pmatrix},\quad
+    M=\begin{pmatrix}a&b\\c&d\end{pmatrix},\quad
+    \bm{C}=\begin{pmatrix}x_{0}\\y_{0}\end{pmatrix}
+  \]
+  とおくと
+  \[
+    \dfrac{\:d\bm{u}\:}{\:dt\:}=M\bm{u},\quad \bm{u}(0)=\bm{C}
+  \]
+  と書ける. このとき解は行列指数関数で
+  \[
+    \bm{u}(t)=e^{Mt}\bm{C}
+  \]
+  と表される.
+
+  行列指数関数の計算は, $M$ が対角化可能なら $M=PDP^{-1}$ として
+  \[
+    e^{Mt}=Pe^{Dt}P^{-1}
+  \]
+  で与えられる. ここで $D=\mathrm{diag}(\lambda_{1},\lambda_{2})$ とおけば
+  \[
+    e^{Dt}=\mathrm{diag}(e^{\lambda_{1}t},e^{\lambda_{2}t})
+  \]
+  である.
+\end{sidebox}
+
+\begin{exproblem}{連立常微分方程式の例題}{ex:ode-system-basic}
+  次の初期値問題を解け.
+  \begin{enumerate}[label=(\arabic*),leftmargin=1.4em] %chktex 36
+    \begin{mathpad}
+    \item
+      \[
+        \begin{cases}
+          \dfrac{\:dx\:}{\:dt\:}=3x+4y \\
+          \dfrac{\:dy\:}{\:dt\:}=4x+3y
+        \end{cases},\quad
+        x(0)=1,\ y(0)=0
+      \]
+    \end{mathpad}
+    \begin{mathpad}
+    \item
+      \[
+        \begin{cases}
+          \dfrac{\:dx\:}{\:dt\:}=x+2y \\
+          \dfrac{\:dy\:}{\:dt\:}=2x+y
+        \end{cases},\quad
+        x(0)=0,\ y(0)=1
+      \]
+    \end{mathpad}
+  \end{enumerate}
+\par\noindent\dotfill\par
+\noindent\textbf{【解答】}\par
+  \begin{pstep}{1}
+    \[
+      M=\begin{pmatrix}3&4\\4&3\end{pmatrix}
+    \]
+    とおくと, 固有値は $\lambda_{1}=7,\ \lambda_{2}=-1$ であり, 対応する固有ベクトルは
+    \[
+      \bm{v}_{1}=\begin{pmatrix}1\\1\end{pmatrix},\quad
+      \bm{v}_{2}=\begin{pmatrix}1\\-1\end{pmatrix}
+    \]
+    である. よって
+    \[
+      P=\begin{pmatrix}1&1\\1&-1\end{pmatrix},\quad
+      D=\begin{pmatrix}7&0\\0&-1\end{pmatrix},\quad
+      \bm{C}=\begin{pmatrix}1\\0\end{pmatrix}
+    \]
+    より
+    \[
+      e^{Dt}=\begin{pmatrix}e^{7t}&0\\0&e^{-t}\end{pmatrix}
+    \]
+    として
+    \[
+      \bm{u}(t)=Pe^{Dt}P^{-1}\bm{C}
+    \]
+    を計算すると
+    \[
+      \bm{u}(t)=\dfrac{\:1\:}{\:2\:}
+      \begin{pmatrix}
+        e^{7t}+e^{-t} \\
+        e^{7t}-e^{-t}
+      \end{pmatrix}
+    \]
+    となる. したがって
+    \[
+      x(t)=\dfrac{\:1\:}{\:2\:}\left(e^{7t}+e^{-t}\right),\quad
+      y(t)=\dfrac{\:1\:}{\:2\:}\left(e^{7t}-e^{-t}\right)
+    \]
+    が解である.
+  \end{pstep}
+  \begin{pstep}{2}
+    \[
+      M=\begin{pmatrix}1&2\\2&1\end{pmatrix}
+    \]
+    とおくと, 固有値は $\lambda_{1}=3,\ \lambda_{2}=-1$ であり, 対応する固有ベクトルは
+    \[
+      \bm{v}_{1}=\begin{pmatrix}1\\1\end{pmatrix},\quad
+      \bm{v}_{2}=\begin{pmatrix}1\\-1\end{pmatrix}
+    \]
+    である. よって
+    \[
+      P=\begin{pmatrix}1&1\\1&-1\end{pmatrix},\quad
+      D=\begin{pmatrix}3&0\\0&-1\end{pmatrix},\quad
+      \bm{C}=\begin{pmatrix}0\\1\end{pmatrix}
+    \]
+    より
+    \[
+      e^{Dt}=\begin{pmatrix}e^{3t}&0\\0&e^{-t}\end{pmatrix}
+    \]
+    として
+    \[
+      \bm{u}(t)=Pe^{Dt}P^{-1}\bm{C}
+    \]
+    を計算すると
+    \[
+      \bm{u}(t)=\dfrac{\:1\:}{\:2\:}
+      \begin{pmatrix}
+        e^{3t}-e^{-t} \\
+        e^{3t}+e^{-t}
+      \end{pmatrix}
+    \]
+    となる. したがって
+    \[
+      x(t)=\dfrac{\:1\:}{\:2\:}\left(e^{3t}-e^{-t}\right),\quad
+      y(t)=\dfrac{\:1\:}{\:2\:}\left(e^{3t}+e^{-t}\right)
+    \]
+    が解である.
+  \end{pstep}
+\end{exproblem}
+\end{document}

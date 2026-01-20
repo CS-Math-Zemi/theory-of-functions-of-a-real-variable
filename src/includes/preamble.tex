@@ -5,7 +5,6 @@
 % ==============================================
 
 % ---- レイアウト設定 (geometry) ----
-\usepackage{geometry}
 \geometry{top=25mm,bottom=25mm,left=25mm,right=25mm}
 
 % ---- 数式番号を章ごとに (1.1) のようにする ----
@@ -30,7 +29,18 @@
 \newlength{\pstepindent}
 \setlength{\pstepindent}{3.2em}
 
-\NewDocumentEnvironment{pstep}{m}{%
+\ExplSyntaxOn %chktex 1
+\NewDocumentCommand{\pstepformat}{m m}{%
+  \str_case:nnF {#1}
+    {
+      {box}{\fbox{\textbf{#2}}}
+      {bracket}{\textbf{[#2]}}
+      {paren}{\textbf{(#2)}}
+    }
+    {\textbf{(#2)}}%
+}
+\ExplSyntaxOff%chktex 1
+\NewDocumentEnvironment{pstep}{O{paren} m}{%
   \begin{list}{}{%
     \setlength{\leftmargin}{\pstepindent}%
     \setlength{\labelwidth}{\pstepindent}%
@@ -41,7 +51,7 @@
     \setlength{\parsep}{0pt}%
     \setlength{\itemsep}{0pt}%
   }%
-  \item[\textbf{(#1)}]%
+  \item[\pstepformat{#1}{#2}]%
   \leavevmode\par\nobreak\noindent\ignorespaces%
   % display数式まわりの詰め（必要なら調整）
   \setlength{\abovedisplayskip}{2pt}%
@@ -85,16 +95,71 @@
 \DeclareMathOperator{\Arg}{Arg}
 
 % ここに追加のコマンドを定義してください
+\renewcommand{\dd}{\mathit{d}}
 % --- preamble に追加 ---
 \usepackage{titlesec}
 %\usepackage[most]{tcolorbox}
 \usepackage{tikz}
 \usepackage{xcolor}
 \tcbuselibrary{skins}
+\usetikzlibrary{arrows.meta,shapes.callouts,decorations.pathmorphing}
 % 色（適当に）
 \definecolor{SecBlack}{HTML}{2B2B2B}
 \definecolor{SubGray}{HTML}{E6E6E6}
 \definecolor{RuleGray}{HTML}{9A9A9A}
+
+% ---- emoji callout (math-safe, no spacing impact) ----
+\tikzset{
+  mathcallout bubble/.style={
+    draw,
+    ellipse callout,
+    align=left,
+    inner sep=3pt,
+    font=\sffamily\bfseries\small,
+  },
+}
+\newcommand{\mathcalloutemoji}[1]{\fontsize{18}{18}\selectfont\emotion{#1}}
+\NewDocumentCommand{\mathcallout}{O{2.0em} O{2.1} O{0.15} O{10pt} O{1pt} m m}{%
+  \smash{\rlap{\hspace{#1}\raisebox{0pt}[0pt][0pt]{%
+    \tikz[baseline]{%
+      \node (emo) at (0.0,0.6) {\mathcalloutemoji{#6}};%chktex 1
+      \node[
+        mathcallout bubble,
+        callout absolute pointer={([xshift=#4,yshift=#5]emo.center)}
+      ] at (#2,#3) {#7};
+    }%
+  }}}%
+}
+
+% ---- math underline annotation (wave/solid/double, color selectable) ----
+\ExplSyntaxOn%chktex 1
+\NewDocumentCommand{\mathunderline}{O{wave} O{red} m O{}}{%
+  \str_case:nnF {#1}
+    {
+      {wave}{\def\mathunderlineDecor{\uwave}}
+      {solid}{\def\mathunderlineDecor{\uline}}
+      {double}{\def\mathunderlineDecor{\uuline}}
+    }
+    {\def\mathunderlineDecor{\uline}}%
+  \def\mathunderlineBase{\mbox{$\displaystyle #3$}}%
+  \def\mathunderlineBody{%
+    \rlap{\textcolor{#2}{\mathunderlineDecor{\phantom{\mathunderlineBase}}}}%
+    \mathunderlineBase%chktex 1
+  }%
+  \tl_if_blank:nTF {#4}
+    {\mathunderlineBody}
+    {\underset{\textcolor{#2}{\scriptsize #4}}{\mathunderlineBody}}%
+}
+\ExplSyntaxOff%chktex 1
+
+% ---- nested underline annotation (bottom double underline + label) ----
+\NewDocumentCommand{\mathnestunderline}{O{blue} m m}{%
+  \underset{\textcolor{#1}{\scriptsize #2}}{%
+    \begingroup
+    \color{#1}\underline{\underline{\textcolor{black}{#3}}}%
+    \endgroup
+  }%
+}
 
 % ===== section（上のやつ：左に黒い角丸、右にタイトル＋下に線） =====
 \newcommand{\MySectionFormat}[1]{%
